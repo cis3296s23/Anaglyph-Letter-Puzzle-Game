@@ -16,3 +16,17 @@ firebase_admin.initialize_app(cred)
 # get ref to databse
 db = firestore.client()
 
+# test user upload
+# Get a reference to the 'users' collection
+root_patient_coll_name = getenv('ROOT_PATIENT_COLLECTIONS')
+
+patients_coll_ref = db.collection(root_patient_coll_name)
+
+new_patients_ref = patients_coll_ref.document('p1')
+
+new_patients_ref.set({
+	'name': 'John Doe',
+    'email': 'john@example.com',
+    'age': 30
+})
+
