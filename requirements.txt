@@ -1,0 +1,4 @@
+firebase_admin==6.1.0
+pygame==2.1.2
+pygame_gui==0.6.8
+python-dotenv==1.0.0
