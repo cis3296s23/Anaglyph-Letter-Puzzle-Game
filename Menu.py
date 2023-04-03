@@ -70,6 +70,7 @@ def mode_page():
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(
             (right, 10),
+            (screen_width - button_width - 10, 10),
             (button_width, button_height)),
         text="Back",
         manager=manager)
@@ -96,6 +97,7 @@ def redirect_proof_of_concpt_page():
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(
             (right, 10),
+            (0, 10),
             (button_width, button_height)),
         text="Back",
         manager=manager)
