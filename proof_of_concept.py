@@ -14,7 +14,6 @@ font_size = math.ceil(cell_size // 1.25)
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Letter Grid")
 
-# set up the font
 font = pygame.font.Font(None, font_size)
 
 red = (200, 0, 0)
