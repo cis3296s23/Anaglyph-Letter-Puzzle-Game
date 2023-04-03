@@ -9,16 +9,20 @@ info = pygame.display.Info()
 screen_width = info.current_w
 screen_height = info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Letter Puzzle")
+pygame.display.set_caption("Anaglyph Letter Puzzle")
 manager = pygame_gui.UIManager((screen_width, screen_height))
-middle = screen_width / 2
+middle = (screen_width - button_width) / 2
+right = screen_width - button_width - 10
 top = 10
+font = pygame.font.SysFont(None, 100)
+
 
 def menu_page():
     global manager
-    x = screen_width / 2 - button_width
+    x = middle
     y = 200
     manager = pygame_gui.UIManager((screen_width, screen_height))
+    title_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((middle, 100), (button_width, button_height)), text="Anaglyph Letter Puzzle", manager=manager)
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y), (button_width, button_height)), text="Quick Play", manager=manager)
     mode_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y + 100), (button_width, button_height)), text="Mode Select", manager=manager)
     settings_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y + 200), (button_width, button_height)), text="Settings", manager=manager)
@@ -26,7 +30,6 @@ def menu_page():
     login_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y + 400), (button_width, button_height)), text="Login", manager=manager)
     quit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y + 500), (button_width, button_height)), text="Quit", manager=manager)
 
-    # Main game loop
     running = True
     while running:
         for event in pygame.event.get():
@@ -46,7 +49,6 @@ def menu_page():
                         redirect_proof_of_concpt_page()
                     elif event.ui_element == quit_button:
                         running = False
-                        pygame.quit()
             manager.process_events(event)
         manager.update(pygame.time.get_ticks() / 1000.0)
         screen.fill((0, 0, 0))
@@ -67,6 +69,7 @@ def mode_page():
     manager = pygame_gui.UIManager((screen_width, screen_height))
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(
+            (right, 10),
             (screen_width - button_width - 10, 10),
             (button_width, button_height)),
         text="Back",
@@ -86,7 +89,6 @@ def mode_page():
         screen.fill((0, 0, 0))
         manager.draw_ui(screen)
         pygame.display.update()
-
     pygame.quit()
 
 def redirect_proof_of_concpt_page():
@@ -94,6 +96,7 @@ def redirect_proof_of_concpt_page():
     manager = pygame_gui.UIManager((screen_width, screen_height))
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(
+            (right, 10),
             (0, 10),
             (button_width, button_height)),
         text="Back",
@@ -116,6 +119,3 @@ def redirect_proof_of_concpt_page():
     pygame.quit()
 
 menu_page()
-
-
-
