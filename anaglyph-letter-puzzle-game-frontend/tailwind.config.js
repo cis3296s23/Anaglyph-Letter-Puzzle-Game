@@ -10,6 +10,9 @@ module.exports = {
             fontFamily: {
                 inter: ["var(--font-inter)", "Helvetica"],
             },
+            colors: {
+                "sp-green": "#20B486",
+            },
         },
     },
     plugins: [],
