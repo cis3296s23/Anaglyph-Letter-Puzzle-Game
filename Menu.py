@@ -65,6 +65,27 @@ def back_to_menu():
     pygame.display.set_caption("Letter Puzzle")
     manager = pygame_gui.UIManager((screen_width, screen_height))
     menu_page()
+    
+    
+    
+    
+def display_text(surface, text, pos, font, color): 
+    collection = [word.split(' ') for word in text.splitlines() ]
+    space = font.size(' ')[0]
+    x,y = pos 
+    for lines in collection: 
+        for words in lines: 
+            word_surface = font.render(words, True, color)
+            word_width , word_height = word_surface.get_size()
+            if x + word_width >= 800: 
+                x = pos[0] 
+                y += word_height 
+            surface.blit(word_surface, (x,y)) 
+            x += word_width + space 
+        x = pos[0]
+        y += word_height
+
+    
 
 
 def mode_page():
