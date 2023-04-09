@@ -48,7 +48,7 @@ def menu_page():
                     elif event.ui_element == settings_button:
                         redirect_proof_of_concpt_page()
                     elif event.ui_element == help_button:
-                        redirect_proof_of_concpt_page()
+                        help_page()
                     elif event.ui_element == login_button:
                         redirect_proof_of_concpt_page()
                     elif event.ui_element == quit_button:
@@ -93,6 +93,36 @@ def mode_page():
         manager.draw_ui(screen)
         pygame.display.update()
     pygame.quit()
+    
+        
+def help_page():
+    global manager
+    pygame.display.set_caption("Help Page")
+    manager = pygame_gui.UIManager((screen_width, screen_height))
+    back_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(
+            (right, 10),
+            (button_width, button_height)),
+        text="Back",
+        manager=manager)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == back_button:
+                        back_to_menu()
+            manager.process_events(event)
+        manager.update(pygame.time.get_ticks() / 1000.0)
+        screen.fill((0, 0, 0))
+        manager.draw_ui(screen)
+        pygame.display.update()
+    pygame.quit()    
+
+
 
 def redirect_proof_of_concpt_page():
     global manager
