@@ -90,11 +90,11 @@ select {
 }
 
 .shadow-main:nth-child(3n + 1) {
-    @apply shadow-red-200;
+    @apply shadow-rose-200;
 }
 
 .shadow-main:nth-child(3n + 2) {
-    @apply shadow-blue-200;
+    @apply shadow-blue-300;
 }
 
 .tranform-icon {
