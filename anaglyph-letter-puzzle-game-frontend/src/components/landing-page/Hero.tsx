@@ -28,6 +28,7 @@ const images = [
     },
 ];
 
+// The "eye grabbing part of the page"
 const Hero = () => {
     return (
         <main className="font-inter min-h-[600px] custom-bg-blur border-b py-10">

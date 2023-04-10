@@ -4,6 +4,9 @@ import { GrReactjs } from "react-icons/gr";
 import FeatureCard from "./FeatureCard";
 
 var x = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus pariatur quis nostrum corrupti, eum at";
+
+// uses <FeatureCard /> and displays it in a grid
+// represents the Feature part of the landing page
 export default function Features() {
     return (
         <section className="font-inter border-b">

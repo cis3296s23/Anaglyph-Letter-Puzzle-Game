@@ -6,6 +6,7 @@ interface FeatureCardProps {
     name: string;
 }
 
+// Component card that displays a feature
 export default function FeatureCard(props: FeatureCardProps) {
     return (
         <div className="shadow-main border-[1px] w-96 h-48 rounded shadow-lg p-4 mid-max:w-[356px] md-max:w-[412px] border-b">
