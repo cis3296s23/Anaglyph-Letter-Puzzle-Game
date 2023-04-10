@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { Gallery } from "react-grid-gallery";
 
@@ -23,22 +24,32 @@ const images = [
     {
         src: "https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg",
         width: 450,
-        height: 212,
+        height: 250,
     },
 ];
 
+//! need to do something about MD:lg-max
 const Hero = () => {
     return (
-        <main className="font-inter min-h-[600px] custom-bg-blur border-b">
-            <section className="z-10 grid grid-cols-2 w-[1200px] mx-auto pt-4 xl-max:w-[1000px] lg-max:grid-cols-1 lg-max:w-full">
+        <main className="font-inter min-h-[600px] custom-bg-blur border-b py-10">
+            <section className="grid grid-cols-2 w-[1200px] mx-auto pt-4 xl-max:w-[1000px] lg-max:grid-cols-1 lg-max:w-full">
                 <div className="flex flex-col justify-center lg-max:items-center">
                     <h2 className="text-2xl font-medium mt-10">Product Line 1</h2>
                     <h2 className="text-4xl font-semibold mt-10">This is a sentence</h2>
                     <h2 className="text-5xl font-black">Keyword</h2>
                     <small className="font-normal mt-1">Some random Platitude</small>
                 </div>
-                <div className="mt-10">
+                <div className="lg-max:hidden">
                     <Gallery images={images} enableImageSelection={false} />
+                </div>
+                <div className="lg:hidden mt-10 flex justify-center ">
+                    <Image
+                        alt="placeholder"
+                        src="https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg"
+                        height={562}
+                        width={842}
+                        className="w-[450px] rounded-md shadow-2xl sm-max:w-96"
+                    />
                 </div>
             </section>
         </main>
