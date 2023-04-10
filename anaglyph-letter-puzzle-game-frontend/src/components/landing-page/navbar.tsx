@@ -19,12 +19,12 @@ const Navbar = () => {
         </>
     );
 
-    const AuthButton = <Link href={"#"} className="px-8 py-3 rounded-md bg-sp-green text-white font-bold">Sign Up or Log in</Link>;
+    const AuthButton = <Link href={"#"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold">Sign Up or Log in</Link>;
 
     return (
-        <div className="w-full h-[80px] bg-white border-b font-inter sticky">
+        <nav className="w-full h-[80px] bg-white border-b font-inter sticky">
             <div className="md:max-w-[1480px] max-w-[600px] m-auto w-full h-full flex justify-between items-center md:px-4 px-4">
-                <h1 className="text-xl font-bold text-sp-green border-b-2 border-t-2 border-sp-green">{process.env.NEXT_PUBLIC_SITENAME}</h1>
+                <h1 className="text-xl font-bold text-sp1 border-b-2 border-t-2 border-sp1">{process.env.NEXT_PUBLIC_SITENAME}</h1>
                 <div className="hidden md:flex items-center ">
                     <ul className="flex gap-4">{Links}</ul>
                 </div>
@@ -42,7 +42,7 @@ const Navbar = () => {
                     <div className="flex flex-col my-4 gap-4">{AuthButton}</div>
                 </ul>
             </div>
-        </div>
+        </nav>
     );
 };
 
