@@ -28,11 +28,10 @@ const images = [
     },
 ];
 
-//! need to do something about MD:lg-max
 const Hero = () => {
     return (
         <main className="font-inter min-h-[600px] custom-bg-blur border-b py-10">
-            <section className="grid grid-cols-2 w-[1200px] mx-auto pt-4 xl-max:w-[1000px] lg-max:grid-cols-1 lg-max:w-full">
+            <section className="grid grid-cols-2 mx-auto pt-4 w-[1200px] lg-max:grid-cols-1 lg-max:w-full xl-max:w-[1000px]">
                 <div className="flex flex-col justify-center lg-max:items-center">
                     <h2 className="text-2xl font-medium mt-10">Product Line 1</h2>
                     <h2 className="text-4xl font-semibold mt-10">This is a sentence</h2>

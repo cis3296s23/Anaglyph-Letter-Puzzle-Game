@@ -18,7 +18,7 @@ module.exports = {
                 "xl-max": { max: "1279px" },
                 "lg-max": { max: "1023px" },
                 "mid-max": { max: "900px" },
-                "md-max": { max: "767px" },
+                "md-max": { max: "750px" },
                 "sm-max": { max: "639px" },
             },
         },

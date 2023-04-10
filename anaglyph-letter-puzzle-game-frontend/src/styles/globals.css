@@ -78,10 +78,21 @@ select {
 }
 
 .custom-bg-blur {
-    background-color:hsla(161,0%,100%,1);
-    background-image:
-    radial-gradient(at 47% 47%, hsla(235,0%,100%,0.58) 0px, transparent 50%),
-    radial-gradient(at 59% 56%, hsla(354,100%,46%,0.29) 0px, transparent 50%),
-    radial-gradient(at 17% 56%, hsla(161,100%,55%,0.57) 0px, transparent 50%),
-    radial-gradient(at 74% 26%, hsla(239,96%,75%,0.67) 0px, transparent 50%);
+    background-color: hsla(161, 0%, 100%, 1);
+    background-image: radial-gradient(at 47% 47%, hsla(235, 0%, 100%, 0.58) 0px, transparent 50%),
+        radial-gradient(at 59% 56%, hsla(354, 100%, 46%, 0.29) 0px, transparent 50%),
+        radial-gradient(at 17% 56%, hsla(161, 100%, 55%, 0.57) 0px, transparent 50%),
+        radial-gradient(at 74% 26%, hsla(239, 96%, 75%, 0.67) 0px, transparent 50%);
+}
+
+.shadow-main:nth-child(3n) {
+    @apply shadow-green-200;
+}
+
+.shadow-main:nth-child(3n + 1) {
+    @apply shadow-red-200;
+}
+
+.shadow-main:nth-child(3n + 2) {
+    @apply shadow-blue-200;
 }

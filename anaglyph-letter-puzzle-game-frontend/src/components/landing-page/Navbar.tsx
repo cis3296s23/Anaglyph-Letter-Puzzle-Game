@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <nav className="w-full min-h-[64px] bg-white border-b font-inter sticky">
-            <div className="md:max-w-[1480px] max-w-[600px] m-auto w-full h-full flex justify-between items-center md:px-4 p-4">
+            <div className="m-auto w-full h-full flex justify-between items-center max-w-[600px] md:max-w-[1480px] md:px-4 p-4">
                 <h1 className="text-xl font-bold text-sp1 border-b-2 border-t-2 border-sp1">{process.env.NEXT_PUBLIC_SITENAME}</h1>
                 <div className="hidden md:flex items-center ">
                     <ul className="flex gap-4">{Links}</ul>
