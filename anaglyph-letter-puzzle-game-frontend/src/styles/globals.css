@@ -96,3 +96,9 @@ select {
 .shadow-main:nth-child(3n + 2) {
     @apply shadow-blue-200;
 }
+
+.tranform-icon {
+    position: relative;
+    top: -36px;
+    left: -36px;
+}
