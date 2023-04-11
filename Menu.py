@@ -216,4 +216,42 @@ def redirect_proof_of_concpt_page():
     pygame.quit()
 
 
+def login_page():
+    global manager
+    x = middle
+    y = 200
+    manager = pygame_gui.UIManager((screen_width, screen_height))
+
+    username_box = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((x, y), (button_width, button_height)),
+                                                       manager=manager)
+    password_box = pygame_gui.elements.UITextEntryLine(
+        relative_rect=pygame.Rect((x, y + 100), (button_width, button_height)), manager=manager)
+
+    submit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((x, y + 200), (button_width, button_height)),
+                                                 text="Submit", manager=manager)
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((right, 10), (button_width, button_height)),
+                                               text="Back", manager=manager)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == submit_button:
+                        username = username_box.get_text()
+                        password = password_box.get_text()
+                        print(f"Login attempted with username '{username}' and password '{password}'")
+                        logged_in = True
+                        back_to_menu()
+                    elif event.ui_element == back_button:
+                        back_to_menu()
+            manager.process_events(event)
+        manager.update(pygame.time.get_ticks() / 1000.0)
+        screen.fill((0, 0, 0))
+        manager.draw_ui(screen)
+        pygame.display.update()
+    pygame.quit()
+
+
 menu_page()
