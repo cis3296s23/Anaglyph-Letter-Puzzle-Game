@@ -19,10 +19,14 @@ const Navbar = () => {
         </>
     );
 
-    const AuthButton = <Link href={"#"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold text-center lg-max:px-4">Sign Up or Log in</Link>;
+    const AuthButton = (
+        <Link href={"#"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold text-center lg-max:px-4">
+            Sign Up or Log in
+        </Link>
+    );
 
     return (
-        <nav className="w-full min-h-[64px] bg-white border-b font-inter sticky">
+        <nav className="z-50 w-full min-h-[64px] bg-white border-b font-inter sticky">
             <div className="m-auto w-full h-full flex justify-between items-center max-w-[600px] md:max-w-[1480px] md:px-4 p-4">
                 <h1 className="text-xl font-bold text-sp1 border-b-2 border-t-2 border-sp1">{process.env.NEXT_PUBLIC_SITENAME}</h1>
                 <div className="hidden md:flex items-center ">
