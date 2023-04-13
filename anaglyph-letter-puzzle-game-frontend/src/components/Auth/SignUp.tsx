@@ -1,13 +1,13 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import Link from "next/link";
+import { getAuth } from "firebase/auth";
 import React, { useRef } from "react";
 import SignInWithGoogle from "./SignInWithGoogle";
 
-export default function SignIn() {
+export default function SignUp() {
     const auth = getAuth();
 
     const emailInput = useRef<HTMLInputElement>(null);
     const pwInput = useRef<HTMLInputElement>(null);
+    const pwInputdup = useRef<HTMLInputElement>(null);
 
     // handle a user creating an account with email and pw
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -17,14 +17,10 @@ export default function SignIn() {
         // read values from input boxes
         const email = emailInput.current?.value;
         const pword = pwInput.current?.value;
+        const pwDup = pwInputdup.current?.value;
 
         // reject empty attempt
-        if (!email || !pword) return;
-
-        // send to databases
-        signInWithEmailAndPassword(auth, email, pword)
-            .then((cred) => console.log(cred))
-            .catch((err) => console.error(err));
+        if (!email || !pword || !pwDup) return;
     };
 
     return (
@@ -39,6 +35,10 @@ export default function SignIn() {
                     <label htmlFor="password-input">Password</label>
                     <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInput} type="password" required />
                 </div>
+                <div className="flex flex-col gap-1">
+                    <label htmlFor="password-input">Retype Password</label>
+                    <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInputdup} type="password" required />
+                </div>
                 <button id="hover-rm-bg" type="submit" className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl hover:bg-sp1">
                     Submit
                 </button>
@@ -49,12 +49,6 @@ export default function SignIn() {
                 <hr className="w-full" />
             </div>
             <SignInWithGoogle />
-            <div className="pt-4">
-                Dont have an account?{" "}
-                <Link className="text-blue-600 hover:underline" href="/sign-up">
-                    Create one
-                </Link>
-            </div>
         </div>
     );
 }
