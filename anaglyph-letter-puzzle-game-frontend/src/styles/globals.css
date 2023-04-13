@@ -111,13 +111,12 @@ select {
     background-size: 600% 600%;
 }
 
-.animated-gradient-bg {
+.animated-gradient-bg.full-page {
     position: absolute;
     left: 0px;
     right: 0px;
     top: 0px;
     bottom: 0px;
-    
 }
 
 @-webkit-keyframes AnimationName {
@@ -152,4 +151,8 @@ select {
     100% {
         background-position: 0% 50%;
     }
+}
+
+#hover-rm-bg:hover {
+    background: #20b486 !important;
 }
