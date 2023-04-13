@@ -1,10 +1,26 @@
 import Link from "next/link";
+
 import React, { useState } from "react";
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth, signOut } from "firebase/auth";
+import app from "../../../firebase.config";
+
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+    // need auth status to display the login status
+    const auth = getAuth(app);
+    const [user] = useAuthState(auth);
+
+    // used to re-route on logouts
+    const router = useRouter();
+
+    // for small screen navbar toggle
     const [toggle, setToggle] = useState(false);
     const handleClick = () => setToggle(!toggle);
 
@@ -19,10 +35,30 @@ const Navbar = () => {
         </>
     );
 
+    const handleLogout = () => {
+        // logout if a defined user exists
+        if (!user) return;
+        signOut(auth).then(() => router.push("/"));
+    };
+
     const AuthButton = (
-        <Link href={"#"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold text-center lg-max:px-4">
-            Sign Up or Log in
-        </Link>
+        <>
+            {user && (
+                <Link
+                    onClick={handleLogout}
+                    href={"#"}
+                    className="px-8 py-3 rounded-md bg-rose-600 text-white font-bold text-center lg-max:px-4 flex gap-2 items-center"
+                >
+                    <FaSignOutAlt />
+                    Logout
+                </Link>
+            )}
+            {!user && (
+                <Link href={"/sign-in"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold text-center lg-max:px-4 flex gap-2 items-center">
+                    <FaSignInAlt /> Log in
+                </Link>
+            )}
+        </>
     );
 
     return (
