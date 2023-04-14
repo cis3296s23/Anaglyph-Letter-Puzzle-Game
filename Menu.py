@@ -50,7 +50,7 @@ def menu_page():
                     elif event.ui_element == help_button:
                         help_page()
                     elif event.ui_element == login_button:
-                        redirect_proof_of_concpt_page()
+                        login_page()
                     elif event.ui_element == quit_button:
                         running = False
             manager.process_events(event)
@@ -65,10 +65,11 @@ def back_to_menu():
     pygame.display.set_caption("Letter Puzzle")
     manager = pygame_gui.UIManager((screen_width, screen_height))
     menu_page()
-    
-    
-    
-    
+
+
+
+
+
 def display_text(surface, text, pos, font, color): 
     collection = [word.split(' ') for word in text.splitlines() ]
     space = font.size(' ')[0]
@@ -85,12 +86,15 @@ def display_text(surface, text, pos, font, color):
         x = pos[0]
         y += word_height
 
-    
+
+
+
 
 
 def mode_page():
     global manager
     pygame.display.set_caption("Mode Select")
+    
     manager = pygame_gui.UIManager((screen_width, screen_height))
     back_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(
@@ -109,13 +113,15 @@ def mode_page():
                     if event.ui_element == back_button:
                         back_to_menu()
             manager.process_events(event)
+        
+        # Clear the screen and draw the UI
         manager.update(pygame.time.get_ticks() / 1000.0)
         screen.fill((0, 0, 0))
-        manager.draw_ui(screen)
+        manager.draw_ui(screen)       
         pygame.display.update()
     pygame.quit()
     
-        
+    
 def help_page():
     global manager
     pygame.display.set_caption("Help Page")
@@ -126,7 +132,6 @@ def help_page():
             (button_width, button_height)),
         text="Back",
         manager=manager)
-
     running = True
     while running:
         for event in pygame.event.get():
@@ -138,12 +143,69 @@ def help_page():
                         back_to_menu()
             manager.process_events(event)
         manager.update(pygame.time.get_ticks() / 1000.0)
+        text = "Background:"
+        text1 = "The Anaglyph Letter Puzzle Game is a visual puzzle that challenges you,the player,to identify a single letter that is different from the others in a grid of identical letters."
+        text2 = "How to Play:"
+        text3 = "To play, you must examine the grid closely and identify the unique letter, which may be a different size, color, or orientation than the other letters in the grid."
+        text4 = "Mode Select:" 
+        text5 = "In Mode Select, the level of difficulty can be altered to your liking. Use the buttons to decrease or increase the level of your grid." 
+        text6 = "Settings:" 
+        text7 = "The are different parameters that you change to personalize your game experience. You can change the time allotted, the colors for the grid, and size of the characters."
+        text8 = "Login:" 
+        text9 = "To track your progress as a patient, enter your username and password. If you are a healthcare professional, please enter your username and work pin number."
+        font = pygame.font.SysFont(None, 26)
         screen.fill((0, 0, 0))
         manager.draw_ui(screen)
+        display_text(screen,text, (350,45), font, 'gray') 
+        #the space between title and expl: 40 , from past exp to new title: 95
+        display_text(screen, text1, (350,85), font, 'gray')
+        display_text(screen, text2, (350,180), font, 'gray')
+        display_text(screen, text3, (350, 220), font, 'gray')
+        display_text(screen, text4, (350,315), font, 'gray')
+        display_text(screen, text5, (350,355), font, 'gray')
+        display_text(screen, text6, (350,450), font, 'gray')
+        display_text(screen, text7, (350,490), font, 'gray')
+        display_text(screen, text8, (350,585), font, 'gray')
+        display_text(screen, text9, (350,625), font, 'gray')
+        
         pygame.display.update()
-    pygame.quit()    
+    pygame.quit() 
+    
+    
 
+        
+def login_page():
+    global manager
+    pygame.display.set_caption("Login Page")
+    manager = pygame_gui.UIManager((screen_width, screen_height))
+    back_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(
+            (right, 10),
+            (button_width, button_height)),
+        text="Back",
+        manager=manager)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == back_button:
+                        back_to_menu()
+            manager.process_events(event)
+        manager.update(pygame.time.get_ticks() / 1000.0)
+        text = "Login:"
+        font = pygame.font.SysFont(None, 26)
+        screen.fill((0, 0, 0))
+        manager.draw_ui(screen)
+        display_text(screen, text, (350,20), font, 'gray')
+        pygame.display.update()
+    pygame.quit() 
 
+   
+
+    
 
 def redirect_proof_of_concpt_page():
     global manager
