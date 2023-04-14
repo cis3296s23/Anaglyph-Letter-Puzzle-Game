@@ -44,14 +44,13 @@ const Navbar = () => {
     const AuthButton = (
         <>
             {user && (
-                <Link
+                <button
                     onClick={handleLogout}
-                    href={"#"}
                     className="px-8 py-3 rounded-md bg-rose-600 text-white font-bold text-center lg-max:px-4 flex gap-2 items-center"
                 >
                     <FaSignOutAlt />
                     Logout
-                </Link>
+                </button>
             )}
             {!user && (
                 <Link href={"/sign-in"} className="px-8 py-3 rounded-md bg-sp1 text-white font-bold text-center lg-max:px-4 flex gap-2 items-center">

@@ -51,7 +51,7 @@ export default function SignIn() {
             <SignInWithGoogle />
             <div className="pt-4">
                 Dont have an account?{" "}
-                <Link className="text-blue-600 hover:underline" href="/sign-up">
+                <Link className="text-blue-600 hover:underline font-semibold" href="/sign-up">
                     Create one
                 </Link>
             </div>
