@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import SignInWithGoogle from "./SignInWithGoogle";
+import PasswordValidationDisplay from "./Validation/PasswordValidationDisplay";
 
 export default function SignUp() {
     const auth = getAuth();
@@ -12,8 +13,14 @@ export default function SignUp() {
 
     // read input without re-renders
     const emailInput = useRef<HTMLInputElement>(null);
-    const pwInput = useRef<HTMLInputElement>(null);
+    const [password, setPassword] = useState("");
     const pwInputdup = useRef<HTMLInputElement>(null);
+
+    // show user errors
+    const [error, setError] = useState("");
+
+    // validator state
+    const [isValidPassword, setIsValidPassword] = useState(false);
 
     // handle a user creating an account with email and pw
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -22,19 +29,23 @@ export default function SignUp() {
 
         // read values from input boxes
         const email = emailInput.current?.value;
-        const pword = pwInput.current?.value;
         const pwDup = pwInputdup.current?.value;
 
         // reject empty attempt
-        if (!email || !pword || !pwDup) return;
+        if (!email || !password || !pwDup) return;
+
+        // reject with password not confirmed
+        if (password !== pwDup) return setError("Passwords do not match");
 
         // create user if possible
-        createUserWithEmailAndPassword(auth, email, pword)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 router.push("/");
             })
             .catch((err) => console.error(err));
     };
+
+    console.log("disabled", !isValidPassword);
 
     return (
         <div className="rounded-lg w-10/12 border max-w-[640px] px-8 py-5 shadow-lg bg-white">
@@ -46,13 +57,35 @@ export default function SignUp() {
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="password-input">Password</label>
-                    <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInput} type="password" required />
+                    <input
+                        className="rounded border py-1 px-3 text-lg"
+                        id="password-input"
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        required
+                    />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="password-input">Retype Password</label>
                     <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInputdup} type="password" required />
                 </div>
-                <button id="hover-rm-bg" type="submit" className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl hover:bg-sp1">
+                {password && (
+                    <PasswordValidationDisplay
+                        password={password}
+                        numCapital={0}
+                        numSymbols={1}
+                        numNumbers={1}
+                        lengthMin={8}
+                        setIsValidPassword={setIsValidPassword}
+                    />
+                )}
+                <button
+                    id="hover-rm-bg"
+                    type="submit"
+                    className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl"
+                    disabled={!isValidPassword}
+                >
                     Submit
                 </button>
             </form>

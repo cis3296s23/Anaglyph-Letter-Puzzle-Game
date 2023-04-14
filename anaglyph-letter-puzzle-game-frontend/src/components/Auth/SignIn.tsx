@@ -39,7 +39,7 @@ export default function SignIn() {
                     <label htmlFor="password-input">Password</label>
                     <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInput} type="password" required />
                 </div>
-                <button id="hover-rm-bg" type="submit" className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl hover:bg-sp1">
+                <button id="hover-rm-bg" type="submit" className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl">
                     Submit
                 </button>
             </form>

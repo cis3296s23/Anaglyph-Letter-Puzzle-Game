@@ -1,10 +1,12 @@
 import { FcGoogle } from "react-icons/fc";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../../../firebase.config";
+import { useRouter } from "next/router";
 
 export default function SignInWithGoogle() {
     // obtain auth status
     const auth = getAuth(app);
+    const router = useRouter();
 
     // function to initialize google sign in procedure
     const handleGoogleSignIn = () => {
@@ -15,7 +17,8 @@ export default function SignInWithGoogle() {
             .then((cred) => console.log(cred))
             .catch((err) => {
                 console.error(err);
-            });
+            })
+            .finally(() => router.push("/"));
     };
 
     return (
