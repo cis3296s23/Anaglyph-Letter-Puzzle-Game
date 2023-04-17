@@ -1,9 +1,13 @@
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
+import FirebaseErrorPane from "../ErrorPane/FirebaseErrorPane";
 import SignInWithGoogle from "./SignInWithGoogle";
 import PasswordValidationDisplay from "./Validation/PasswordValidationDisplay";
+
+const re = new RegExp("auth/([^)]+)");
 
 export default function SignUp() {
     const auth = getAuth();
@@ -17,15 +21,16 @@ export default function SignUp() {
     const pwInputdup = useRef<HTMLInputElement>(null);
 
     // show user errors
-    const [error, setError] = useState("");
+    const [error, setError] = useState<unknown>(null);
 
     // validator state
     const [isValidPassword, setIsValidPassword] = useState(false);
 
     // handle a user creating an account with email and pw
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         // prevent page refresh
         e.preventDefault();
+        setError(null);
 
         // read values from input boxes
         const email = emailInput.current?.value;
@@ -38,14 +43,17 @@ export default function SignUp() {
         if (password !== pwDup) return setError("Passwords do not match");
 
         // create user if possible
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                router.push("/");
-            })
-            .catch((err) => console.error(err));
-    };
+        const createUserPromise = createUserWithEmailAndPassword(auth, email, password);
 
-    console.log("disabled", !isValidPassword);
+        // error handle
+        try {
+            await createUserPromise;
+            setError(null);
+            router.push("/");
+        } catch (err: unknown) {
+            setError(err);
+        }
+    };
 
     return (
         <div className="rounded-lg w-10/12 border max-w-[640px] px-8 py-5 shadow-lg bg-white">
@@ -80,6 +88,7 @@ export default function SignUp() {
                         setIsValidPassword={setIsValidPassword}
                     />
                 )}
+                <FirebaseErrorPane err={error} />
                 <button
                     id="hover-rm-bg"
                     type="submit"

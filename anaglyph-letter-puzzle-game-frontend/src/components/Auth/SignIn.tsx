@@ -1,18 +1,25 @@
+import { FirebaseError } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
-import React, { useRef } from "react";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import FirebaseErrorPane from "../ErrorPane/FirebaseErrorPane";
 import SignInWithGoogle from "./SignInWithGoogle";
 
 export default function SignIn() {
     const auth = getAuth();
+    const router = useRouter();
 
     const emailInput = useRef<HTMLInputElement>(null);
     const pwInput = useRef<HTMLInputElement>(null);
 
+    const [error, setError] = useState<unknown>(null);
+
     // handle a user creating an account with email and pw
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
         // prevent page refresh
         e.preventDefault();
+        setError(null);
 
         // read values from input boxes
         const email = emailInput.current?.value;
@@ -22,9 +29,16 @@ export default function SignIn() {
         if (!email || !pword) return;
 
         // send to databases
-        signInWithEmailAndPassword(auth, email, pword)
-            .then((cred) => console.log(cred))
-            .catch((err) => console.error(err));
+        const authUserPromise = signInWithEmailAndPassword(auth, email, pword);
+
+        // error handle
+        try {
+            await authUserPromise;
+            setError(null);
+            router.push("/");
+        } catch (err: unknown) {
+            setError(err);
+        }
     };
 
     return (
@@ -39,6 +53,7 @@ export default function SignIn() {
                     <label htmlFor="password-input">Password</label>
                     <input className="rounded border py-1 px-3 text-lg" id="password-input" ref={pwInput} type="password" required />
                 </div>
+                <FirebaseErrorPane err={error} />
                 <button id="hover-rm-bg" type="submit" className="rounded-full p-2 font-bold text-white animated-gradient-bg text-xl">
                     Submit
                 </button>
