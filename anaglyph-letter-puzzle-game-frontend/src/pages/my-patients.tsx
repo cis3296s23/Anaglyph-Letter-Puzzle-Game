@@ -1,4 +1,4 @@
-import Patients from "@/components/TherapistPage/Patients";
+import PatientsDisplay from "@/components/TherapistPage/PatientsDisplay";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -18,7 +18,7 @@ export default function MyPatients() {
 
     return (
         <section className="mx-auto w-[1200px] lg-max:w-full xl-max:w-[1000px] font-inter">
-            <Patients user={user} />
+            <PatientsDisplay user={user} />
         </section>
     );
 }
