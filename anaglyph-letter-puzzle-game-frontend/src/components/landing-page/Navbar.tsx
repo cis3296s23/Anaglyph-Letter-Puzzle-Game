@@ -17,6 +17,8 @@ const Navbar = () => {
     const auth = getAuth(app);
     const [user] = useAuthState(auth);
 
+    console.log(user);
+
     // used to re-route on logouts
     const router = useRouter();
 
@@ -27,11 +29,17 @@ const Navbar = () => {
     // links to render based on auth status
     const Links = (
         <>
-            <li className="p-4 hover:bg-gray-100">Home</li>
-            <li className="p-4 hover:bg-gray-100">About</li>
-            <li className="p-4 hover:bg-gray-100">Support</li>
-            <li className="p-4 hover:bg-gray-100">Platform</li>
-            <li className="p-4 hover:bg-gray-100">Pricing</li>
+            <Link href="/" scroll={false} className="p-4 hover:bg-gray-100 block">
+                Home
+            </Link>
+            <Link href="/#features" scroll={false} className="p-4 hover:bg-gray-100 block">
+                Features
+            </Link>
+            {user && (
+                <Link href="/my-patients" scroll={false} className="p-4 hover:bg-gray-100 block">
+                    My Patients
+                </Link>
+            )}
         </>
     );
 
@@ -76,10 +84,10 @@ const Navbar = () => {
             </div>
 
             <div className={toggle ? "p-4 bg-white w-full px-8 md:hidden border-b" : "hidden"}>
-                <ul>
+                <div>
                     {Links}
                     <div className="flex flex-col my-4 gap-4">{AuthButton}</div>
-                </ul>
+                </div>
             </div>
         </nav>
     );

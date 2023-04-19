@@ -9,7 +9,7 @@ var x = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus pariat
 // represents the Feature part of the landing page
 export default function Features() {
     return (
-        <section className="font-inter border-b">
+        <section className="font-inter border-b" id="features">
             <div className="mx-auto w-[1200px] lg-max:grid-cols-1 lg-max:w-full xl-max:w-[1000px]">
                 <h2 className="text-4xl font-bold pt-10 text-gray-700 xl-max:pl-8">Features</h2>
                 <section className="my-10 grid grid-cols-3 gap-10 justify-items-center xl-max:grid-cols-2 md-max:grid-cols-1">
