@@ -5,6 +5,7 @@ import FirebaseErrorPane from "../ErrorPane/FirebaseErrorPane";
 
 interface AddPatientFormProps {
     therapistUid: string;
+    refresh: () => void;
 }
 
 export default function AddPatientForm(props: AddPatientFormProps) {
@@ -43,6 +44,8 @@ export default function AddPatientForm(props: AddPatientFormProps) {
         // display error if present
         if (data.code < 200 || data.code > 299) {
             setError(data.message);
+        } else {
+            props.refresh();
         }
     };
 

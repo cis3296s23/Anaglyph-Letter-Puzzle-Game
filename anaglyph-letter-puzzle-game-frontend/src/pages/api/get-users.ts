@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const { creator } = req.query;
 
     // reject if no query points are provided
-    if (!creator) res.status(400).json({ message: "Request missing creator param", code: 400 });
+    if (!creator) return res.status(400).json({ message: "Request missing creator param", code: 400 });
 
     const usersColl = collection(db, process.env.NEXT_PUBLIC_ROOT_USER_COLLECTION as string);
     const creatorQuery = query(usersColl, where("creator", "==", creator));
