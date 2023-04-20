@@ -25,6 +25,6 @@ export default function FirebaseErrorPane(props: FirebaseErrorPaneProps) {
     if (typeof err === "string") {
         return <ErrorPane error={err} />;
     }
-
+    
     return null;
 }
