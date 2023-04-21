@@ -4,7 +4,11 @@ import random
 pygame.init()
 
 # set up the display
+#12 doesn't fit 11 is max for grid_size
 grid_size = 8
+#cellsize 75, gridsize 8
+# cell_size seems to make text larger, not nesecarily the cell itself - or space between the cell.
+#does affect the space between cells but def makes text larger - both at same time
 cell_size = 75
 info = pygame.display.Info()
 
@@ -20,8 +24,8 @@ font = pygame.font.Font(None, font_size)
 standard = 'b'
 target = 'd'
 num_targets = 3
-red = (200, 0, 0)
-blue = (0, 0, 200)
+left_chosen = (200, 0, 0) #red
+right_chosen = (0, 0, 200) #blue
 def gen_grid():
     global running, target_count, grid
 
@@ -70,12 +74,13 @@ def main():
         for row in range(grid_size):
             for col in range(grid_size):
                 letter = grid[row][col]
-                color = red if (row + col) % 2 == 0 else blue
+                color = left_chosen if (row + col) % 2 == 0 else right_chosen
                 text = font.render(letter, True, color)
+                lw = text.get_width() 
+                lh = text.get_height() 
                 x = col * cell_size + (cell_size - text.get_width()) // 2
                 y = row * cell_size + (cell_size - text.get_height()) // 2
                 screen.blit(text, (x, y))
-
         pygame.display.update()
 
     pygame.quit()
