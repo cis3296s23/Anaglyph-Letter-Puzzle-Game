@@ -1,5 +1,8 @@
 # to run async coroutines
 import asyncio 
+import tracemalloc
+
+tracemalloc.start()
 
 # get epoch time
 import time    
@@ -17,7 +20,7 @@ from google.cloud.firestore import Client as Firestore
 from google.cloud.firestore_v1.document import DocumentReference, DocumentSnapshot
 
 # typing
-from typing import Union
+from typing import Union, Dict
 
 
 # get public secrets in memory
@@ -28,11 +31,6 @@ load_dotenv("./anaglyph-letter-puzzle-game-frontend/.env")
 
 # use generated secrets to login into database 
 cred = credentials.Certificate("./config/key.json")
-
-"""
-save color data
-save data function
-"""
 
 class FirebaseConnection():
     """`FirebaseConnection` provides a set of functions to communicate with the predefined database based on app secrets.
@@ -45,7 +43,7 @@ class FirebaseConnection():
         firebase_admin.initialize_app(cred)
         # get ref to databse
         self.db: Firestore = firestore_async.client()
-        self.userRef: Union[DocumentReference, None] = None
+        self.user_ref: Union[DocumentReference, None] = None
 
         self.patients_collection = getenv('ROOT_PATIENT_COLLECTIONS')
 
@@ -53,15 +51,22 @@ class FirebaseConnection():
             raise ValueError("collection value not found, check .env")
 
 
-    def save_time(self, docRef: DocumentReference):
+    def stamp_time(self, docRef: Union[DocumentReference, None]=None):
         """attach a timestamp to a document ref
 
         Args:
-            docRef (DocumentReference): ref of doc that needs a timestamp update
+            docRef (DocumentReference, optional): ref of doc that needs a timestamp update.\n
+            If none, user user_ref
 
-        Returns: async .set() call that needs to be `await`-ed
+        Returns:
+            _type_: async .set() call that needs to be `await`-ed
         """
-        return docRef.set({ 'lastUpdated': int(time.time()) }, merge=True)
+
+        if self.user_ref is None and docRef is None:
+            raise ValueError("User not logged in and no provided doc_ref")
+
+        doc_to_stamp: DocumentReference = self.user_ref if docRef is None else docRef
+        return doc_to_stamp.set({ 'lastUpdated': int(time.time()) }, merge=True)
         
 
     async def login(self, username: str, password: str) -> bool:
@@ -101,7 +106,44 @@ class FirebaseConnection():
 
         return True
 
+
+    def logout(self):
+        """Sets the user-ref to `None`"""
+        self.user_ref = None
+
+
+    async def set_data_for_user(self, data: Dict, with_timestamp: bool=True) -> bool:
+        """Set `data` for the currently logged in user
+
+        Args:
+            data (Dict): Data to be saved to the user database
+            with_timestamp (bool, optional): save with timestamp or not
+
+        Raises:
+            ValueError: if there is no logged in user currently
+
+        Returns:
+            bool: _description_
+        """
+
+        if self.user_ref is None:
+            raise ValueError("User not logged in")
         
+        try:
+            await self.user_ref.set(data, merge=True)
+            await self.stamp_time()
+        except:
+            return False
+
+        return True
+
+
+
 FBC = FirebaseConnection()
-result = asyncio.run(FBC.login('abc', 'xxxe'))
-print(result)
+
+loop = asyncio.get_event_loop()
+
+login = loop.run_until_complete(FBC.login('abc', 'xxxe'))
+saved = loop.run_until_complete(FBC.set_data_for_user({'a': 1}))
+
+loop.close()
