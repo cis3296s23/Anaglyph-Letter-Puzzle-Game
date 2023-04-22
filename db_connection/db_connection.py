@@ -1,6 +1,3 @@
-# to run async coroutines
-import asyncio 
-
 # get epoch time
 import time    
 
@@ -17,7 +14,7 @@ from google.cloud.firestore import Client as Firestore
 from google.cloud.firestore_v1.document import DocumentReference, DocumentSnapshot
 
 # typing
-from typing import Union, Dict
+from typing import Union, Dict, Any
 
 # loading env for website
 load_dotenv("../anaglyph-letter-puzzle-game-frontend/.env")
@@ -119,14 +116,44 @@ class FirebaseConnection():
         
         try:
             self.user_ref.set(data, merge=True)
-            self.stamp_time()
+            if with_timestamp: self.stamp_time()
         except:
             return False
 
         return True
 
+    def get_data_for_user(self, key: str, throw_key_error=False) -> Union[Any, None]:
+        """Get `key` from logged in user's profile
 
+        Args:
+            key (str): key to you want to read
+            throw_key_error (bool, optional): throw `KeyError` if key is not found on db. Defaults to False.
 
-FBC = FirebaseConnection()
-FBC.login('abc', 'xxxe')
-FBC.set_data_for_user({'a': 15})
+        Raises:
+            ValueError: if user not logged in
+            RuntimeError: if logged in user no longer exists
+            KeyError: if `throw_key_error=True` and key not found on user profile
+
+        Returns:
+            Union[Any, None]: Returns the value read under the `Any` datatype.\n
+            If `throw_key_error=False` and key is not recovered `None` is returned with no execption thrown
+        """
+
+        if self.user_ref is None:
+            raise ValueError("User not logged in")
+
+        user_doc = self.user_ref.get()
+
+        if not user_doc.exists: 
+            self.logout()
+            raise RuntimeError("Logged in User not found. Called logout()")
+
+        
+        user_info = user_doc.to_dict()
+
+        if key not in user_info and throw_key_error:
+            # throw execption if user wanted to
+            raise KeyError(f"{key} not found in user data")
+
+        return user_info.get(key, None)
+        
