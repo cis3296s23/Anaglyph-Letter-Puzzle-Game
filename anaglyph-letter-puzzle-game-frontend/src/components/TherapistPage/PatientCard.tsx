@@ -1,14 +1,15 @@
 import { DeleteUserResponse } from "@/pages/api/delete-user";
 import { PatientUser } from "@/types/db";
 import axios, { AxiosResponse } from "axios";
-import { userAgent } from "next/server";
 import React from "react";
 
 import { TbTrashXFilled } from "react-icons/tb";
+import { FaUserEdit } from "react-icons/fa";
 
 export interface PatientCardProps {
     users: PatientUser[];
     refresh: () => void;
+    handleEditUser: (username: string | null) => void;
 }
 
 export default function PatientCards(props: PatientCardProps) {
@@ -42,6 +43,9 @@ export default function PatientCards(props: PatientCardProps) {
                         <th scope="col" className="px-6 py-3">
                             Delete
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Edit
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +59,11 @@ export default function PatientCards(props: PatientCardProps) {
                             <td className="px-6 py-4 text-center">
                                 <button type="button" onClick={() => handleDelete(user.username)}>
                                     <TbTrashXFilled size={20} className="text-rose-500 hover:text-rose-700" />
+                                </button>
+                            </td>
+                            <td className="px-6 py-4 text-center">
+                                <button type="button" onClick={() => props.handleEditUser(user.username)}>
+                                    <FaUserEdit size={20} className="text-blue-500 hover:text-blue-700" />
                                 </button>
                             </td>
                         </tr>

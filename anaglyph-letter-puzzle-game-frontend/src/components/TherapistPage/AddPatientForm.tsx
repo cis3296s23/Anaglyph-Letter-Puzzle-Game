@@ -26,6 +26,7 @@ export default function AddPatientForm(props: AddPatientFormProps) {
 
         if (!username || !password || !password2) return setError("All fields are required");
         if (password !== password2) return setError("Passwords do not match");
+        if (/\s/.test(username)) return setError("Username should not contain whitespace");
 
         const createUserPromise = axios.post<any, AxiosResponse<CreateUserResponse>, CreateUserRequest>(
             "/api/create-user",
@@ -46,6 +47,11 @@ export default function AddPatientForm(props: AddPatientFormProps) {
             setError(data.message);
         } else {
             props.refresh();
+
+            // reset form
+            usernameInput.current.value = "";
+            passwordInput1.current.value = "";
+            passwordInput2.current.value = "";
         }
     };
 
