@@ -1,10 +1,11 @@
+import { PatientEditorReducer } from "@/hooks/PatientEditorReducer";
 import { GetUserResponse } from "@/pages/api/user/get";
 import { PostUserRequest, PostUserResponse } from "@/pages/api/user/post";
 import { filterAndReorderUserData } from "@/util";
 import axios, { AxiosResponse } from "axios";
 import { FirebaseError } from "firebase/app";
 import { DocumentData } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import FirebaseErrorPane from "../ErrorPane/FirebaseErrorPane";
 
 interface PatientEditorProps {
@@ -12,7 +13,7 @@ interface PatientEditorProps {
 }
 
 export default function PatientEditor({ username }: PatientEditorProps) {
-    const [userData, setUserData] = useState<DocumentData | undefined>(undefined);
+    const [userState, dispatch] = useReducer(PatientEditorReducer, {});
     const [error, setError] = useState<unknown>(null);
 
     // re-render component on user changes
@@ -29,12 +30,14 @@ export default function PatientEditor({ username }: PatientEditorProps) {
             const response = resp.data;
 
             if (response.code === 200) {
-                setUserData(response.data);
+                // all 200 status codes will contain DocumentData
+                dispatch({ type: "REPLACE", payload: response.data as DocumentData });
             }
         });
     }, [username]);
 
-    if (!userData) {
+    // render nothing on no data
+    if (!Object.keys(userState)) {
         return null;
     }
 
@@ -45,7 +48,7 @@ export default function PatientEditor({ username }: PatientEditorProps) {
         };
         const saveAction = await axios.post<any, AxiosResponse<PostUserResponse>, PostUserRequest>(
             `/api/user/post?username=${username}`,
-            { a: 14 },
+            userState,
             options
         );
 
@@ -54,9 +57,6 @@ export default function PatientEditor({ username }: PatientEditorProps) {
         if (code !== 200) {
             return setError(saveAction.data.message);
         }
-
-        // save new UPDATED data to new state
-        return setUserData(saveAction.data.data);
     };
 
     return (
@@ -69,11 +69,11 @@ export default function PatientEditor({ username }: PatientEditorProps) {
                 id="disabled-input"
                 aria-label="disabled input"
                 className="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed "
-                defaultValue={userData["username"]}
+                defaultValue={userState["username"]}
                 disabled
                 readOnly
             ></input>
-            {filterAndReorderUserData(Object.keys(userData)).map((key) => (
+            {filterAndReorderUserData(Object.keys(userState)).map((key) => (
                 <div className="mb-6" key={key}>
                     <label htmlFor={key} className="block mb-2 text-sm font-medium text-gray-900">
                         {key}
@@ -82,7 +82,8 @@ export default function PatientEditor({ username }: PatientEditorProps) {
                         type="text"
                         id={key}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        defaultValue={`${userData[key]}`}
+                        defaultValue={`${userState[key]}`}
+                        onChange={(e) => dispatch({ type: key, payload: e.target.value })}
                     />
                 </div>
             ))}
