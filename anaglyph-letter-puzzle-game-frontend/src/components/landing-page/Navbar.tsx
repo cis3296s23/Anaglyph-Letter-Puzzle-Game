@@ -17,8 +17,6 @@ const Navbar = () => {
     const auth = getAuth(app);
     const [user] = useAuthState(auth);
 
-    console.log(user);
-
     // used to re-route on logouts
     const router = useRouter();
 

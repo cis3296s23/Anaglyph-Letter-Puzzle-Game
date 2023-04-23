@@ -7,7 +7,7 @@ import { PatientUser } from "@/types/db";
 import PatientCards from "./PatientCard";
 import AddPatientForm from "./AddPatientForm";
 
-interface PatientsProps {
+export interface PatientsProps {
     user: User | undefined | null;
 }
 
