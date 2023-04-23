@@ -5,11 +5,10 @@ import { db } from "../../../../firebase.config";
 export interface PostUserResponse {
     message: string;
     code: number;
+    data?: DocumentData;
 }
 
-export interface PostUserRequest {
-    username: string;
-}
+export type PostUserRequest = DocumentData;
 
 /**
  * API endpoint for updating user data via query params
@@ -39,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
         const { body } = req;
         await setDoc(userData, { ...body, lastUpdated: Date.now() }, { merge: true });
-        return res.status(200).json({ message: "OK", code: 200 });
+        return res.status(200).json({ message: "OK", code: 200, data: body });
     } catch (error) {
         return res.status(500).json({ message: "Firebase Error", code: 500 });
     }

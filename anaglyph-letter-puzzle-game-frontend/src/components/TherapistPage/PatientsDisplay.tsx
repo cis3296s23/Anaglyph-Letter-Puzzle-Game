@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { DocumentData } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { GetUserResponse } from "@/pages/api/get-users";
+import { GetUsersResponse } from "@/pages/api/get-users";
 import { PatientUser } from "@/types/db";
 import PatientCards from "./PatientCard";
 import AddPatientForm from "./AddPatientForm";
@@ -22,7 +22,7 @@ export default function Patients(props: PatientsProps) {
             return;
         }
 
-        const getUsers = axios.get<never, AxiosResponse<GetUserResponse>>(`/api/get-users?creator=${props.user.uid}`);
+        const getUsers = axios.get<never, AxiosResponse<GetUsersResponse>>(`/api/get-users?creator=${props.user.uid}`);
 
         // update state if data was received
         getUsers.then((response) => {

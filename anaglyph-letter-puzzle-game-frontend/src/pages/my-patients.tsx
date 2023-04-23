@@ -20,7 +20,7 @@ export default function MyPatients() {
     return (
         <section className="mx-auto w-[1200px] lg-max:w-full xl-max:w-[1000px] font-inter">
             <PatientsDisplay user={user} />
-            <PatientEditor user={user} />
+            <PatientEditor username={"abc"} />
         </section>
     );
 }

@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { query, collection, where, getDocs, DocumentData } from "firebase/firestore";
 import { db } from "../../../firebase.config";
 
-export type GetUserResponse = {
+export type GetUsersResponse = {
     message: string;
     code: number;
     users?: DocumentData[];
@@ -12,7 +12,7 @@ export type GetUserResponse = {
  * Api endpoint to create a user via a Get Request
  * Get should include a creator
  */
-export default async function handler(req: NextApiRequest, res: NextApiResponse<GetUserResponse>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<GetUsersResponse>) {
     // reject all requests with no data
     const { creator } = req.query;
 
