@@ -26,7 +26,7 @@ export default function AddPatientForm(props: AddPatientFormProps) {
 
         if (!username || !password || !password2) return setError("All fields are required");
         if (password !== password2) return setError("Passwords do not match");
-        if (/\s/.test(username)) return setError("Username should not contain whitespace");
+        if (!/^[\w\d\_-]+$/.test(username)) return setError("Username can only contain: Letters, Numbers, '-' or '_'");
 
         const createUserPromise = axios.post<any, AxiosResponse<CreateUserResponse>, CreateUserRequest>(
             "/api/create-user",
