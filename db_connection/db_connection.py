@@ -14,7 +14,7 @@ from google.cloud.firestore import Client as Firestore, ArrayUnion
 from google.cloud.firestore_v1.document import DocumentReference, DocumentSnapshot
 
 # typing
-from typing import Union, Dict, Any
+from typing import Union, Dict, Any, List
 
 # loading env for website
 load_dotenv("../anaglyph-letter-puzzle-game-frontend/.env")
@@ -116,7 +116,7 @@ class FirebaseConnection():
         try:
             self.user_ref.set(data, merge=True)
             if with_timestamp: self.stamp_time()
-        finally:
+        except:
             return False
 
         return True
@@ -130,11 +130,9 @@ class FirebaseConnection():
             array_name (str): name of the array to be created or appened to in the database
             data (Any): data to be sent to the array
             with_timestamp (bool, optional): Save with timestamp or not. Defaults to True.
-            throw_type_error (bool, optional): Throw error to halt execution, Defaults to False.
 
         Raises:
             ValueError: if user is not logged in
-            TypeError: if `data` is a nested object. Only `int`, `float`, `bool`, and `str` allowed.
 
         Returns:
             bool: save success indicator
@@ -143,16 +141,14 @@ class FirebaseConnection():
         if self.user_ref is None:
             raise ValueError("User not logged in")
 
-        if type(data) not in (int, float, bool, str):
-            if throw_type_error: raise TypeError("Nested Objects are not supported in firebase")
-
-        try:
-            self.user_ref.update({array_name: ArrayUnion([data])})
-            if with_timestamp: self.stamp_time()
-        finally:
+        try:         
+            self.user_ref.update({
+                array_name: ArrayUnion([data])
+            })
+        except:
             return False
-        return True
 
+        return True
 
     def get_data_for_user(self, key: str, throw_key_error=False) -> Union[Any, None]:
         """Get `key` from logged in user's profile
@@ -188,3 +184,4 @@ class FirebaseConnection():
             raise KeyError(f"{key} not found in user data")
 
         return user_info.get(key, None)
+
