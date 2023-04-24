@@ -47,12 +47,21 @@ class Game_With_Set_Params:
         # Load font and calculate cell size for grid drawing
         self.font_size = 40
         self.font = pg.font.Font(None, self.font_size)
-        self.cell_width = self.font_size
-        self.cell_height = self.font_size
+        sequ_surface = self.font.render(self.target, True, (0,0,0))
+        self.sequ_width = sequ_surface.get_rect().width
+        self.sequ_height = sequ_surface.get_rect().height
+        new_line_surface = self.font.render("\n", True, (0,0,0))
+        tab_surface = self.font.render("\t\t", True, (0,0,0))
+        self.row_space_height = new_line_surface.get_rect().height
+        self.col_space_width = tab_surface.get_rect().width
+        self.col_space_render = col_space * self.col_space_width * 5
 
+
+        self.cell_width = self.sequ_width
+        self.cell_height = self.sequ_height
 
         # Calculate grid size for drawing
-        self.grid_width = (self.cell_width * self.cols) + (self.col_space * (self.cols - 1))
+        self.grid_width = (self.cell_width * self.cols) + (self.col_space_render * (self.cols - 1))
         self.grid_height = (self.cell_height * self.rows) + (self.row_space * (self.rows - 1))
 
         # Calculate grid position for centering on screen
@@ -60,22 +69,33 @@ class Game_With_Set_Params:
         self.grid_y = (self.screen_height - self.grid_height) / 2
 
     def generate_grids(self):
-
         for i in range(self.num_grids):
             new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
 
-    def draw_grid(self, current_grid, screen):
+    def draw_grid(self, current_grid, screen, targets_left):
         for i in range(len(current_grid.grid_list)):
+            # target_surface = self.font.render("Target sequence: " + self.target, True, (255, 255, 255))
+            # target_rect = target_surface.get_rect()
+            # target_rect.center = (self.grid_x + (self.cols * self.cell_width) / 2, self.grid_y - self.row_space)
+            # screen.blit(target_surface, target_rect)
             sequ = current_grid.grid_list[i]
             row = i // self.cols
             col = i % self.cols
             color = (255, 255, 255)
             text_surface = self.font.render(sequ, True, color)
+
             rect = text_surface.get_rect()
-            rect.center = ((col * self.cell_width) + (self.cell_width // 2) + self.grid_x + col * self.col_space,
+            rect.center = ((col * self.cell_width) + (self.cell_width // 2) + self.grid_x + col * self.col_space_render,
                            (row * self.cell_height) + (self.cell_height // 2) + self.grid_y + row * self.row_space)
             screen.blit(text_surface, rect)
+
+            # remaining_text = f"Sequences remaining: {targets_left}"
+            # remaining_surface = self.font.render(remaining_text, True, color)
+            # remaining_rect = remaining_surface.get_rect()
+            # remaining_rect.topright = (self.screen_width - 10, 10)
+            # screen.blit(remaining_surface, remaining_rect)
+
 
     def run(self):
         pg.init()
@@ -94,31 +114,31 @@ class Game_With_Set_Params:
         while running:
             # Draw the current grid
             current_grid = self.grids[self.grids_completed]
-            self.draw_grid(current_grid, self.screen)
+            targets_left = len(current_grid.target_indices) - target_count
+            self.draw_grid(current_grid, self.screen, targets_left)
             pg.display.update()
 
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
-                elif event.type == pg.MOUSEBUTTONUP:
+                elif event.type == pg.MOUSEBUTTONDOWN:
                     mouse_pos = pg.mouse.get_pos()
-                    clicked_col = (mouse_pos[0] - self.grid_x) // (self.cell_width + self.col_space)
+                    clicked_col = (mouse_pos[0] - self.grid_x) // (self.cell_width + self.col_space_render)
                     clicked_row = (mouse_pos[1] - self.grid_y) // (self.cell_height + self.row_space)
                     clicked_index = (clicked_row * self.cols) + clicked_col
                     if clicked_index in current_grid.target_indices:
-
                         target_count += 1
                         # Check if all targets have been found
-                        if target_count == len(current_grid.target_indices):
+                        if targets_left == 0:
+                        # if target_count == len(current_grid.target_indices):
                             self.grids_completed += 1
                             if self.grids_completed == self.num_grids:
                                 # Game is over, exit the loop
-                                running = False
+                                return
                             else:
                                 # Move to the next grid
                                 current_grid = self.grids[self.grids_completed]
                                 target_count = 0
+
             self.screen.fill((0, 0, 0))
         pg.display.update()
-
-
