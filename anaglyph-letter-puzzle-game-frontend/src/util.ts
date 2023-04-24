@@ -4,7 +4,7 @@
  * @param toRemove keys to be removed
  * @returns new array with keys removed
  */
-export function filterUserData(keys: string[], toRemove: string[] = ["creator", "lastUpdated", "created", "username"]) {
+export function filterUserData(keys: string[], toRemove: string[] = ["creator", "lastUpdated", "created", "username", "__notes"]) {
     const __keys = [...keys];
 
     // remove all keys from toRemove

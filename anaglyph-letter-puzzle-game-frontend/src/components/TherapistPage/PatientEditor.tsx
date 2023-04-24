@@ -67,7 +67,7 @@ export default function PatientEditor({ username, closeModel, refresh }: Patient
             return setError(saveAction.data.message);
         }
         setIsLoading(false);
-        refresh()
+        refresh();
     };
 
     return (
@@ -103,6 +103,17 @@ export default function PatientEditor({ username, closeModel, refresh }: Patient
                         />
                     </div>
                 ))}
+                <label htmlFor="notes" className="block mb-2 text-sm font-medium text-gray-900">
+                    Your Notes
+                </label>
+                <textarea
+                    id="notes"
+                    rows={4}
+                    className="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your notes here..."
+                    defaultValue={userState["__notes"] ?? ""}
+                    onChange={(e) => dispatch({ type: "__notes", payload: e.target.value })}
+                ></textarea>
                 <FirebaseErrorPane err={error} />
                 <button
                     type="submit"
