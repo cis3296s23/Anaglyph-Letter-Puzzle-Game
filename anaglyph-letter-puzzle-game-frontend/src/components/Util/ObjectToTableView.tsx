@@ -48,16 +48,20 @@ export default function PatientInfoToTableView({ obj }: { obj: Record<any, any> 
                     <td className="px-6 py-4 whitespace-pre-wrap">{new Date(obj.lastUpdated).toLocaleDateString()}</td>
                 </tr>
             </tbody>
-            {filterUserData(Object.keys(obj), used).map((key) => (
-                <tbody className="border-b-[1px]" key={key}>
-                    <tr className="bg-white dark:bg-gray-800">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {key}
-                        </th>
-                        <td className="px-6 py-4 whitespace-pre-wrap">{obj[key]}</td>
-                    </tr>
-                </tbody>
-            ))}
+            {filterUserData(Object.keys(obj), used).map(
+                // do not render nested objects
+                (key) =>
+                    typeof obj[key] !== "object" && (
+                        <tbody className="border-b-[1px]" key={key}>
+                            <tr className="bg-white dark:bg-gray-800">
+                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {key}
+                                </th>
+                                <td className="px-6 py-4 whitespace-pre-wrap">{obj[key]}</td>
+                            </tr>
+                        </tbody>
+                    )
+            )}
         </table>
     );
 }
