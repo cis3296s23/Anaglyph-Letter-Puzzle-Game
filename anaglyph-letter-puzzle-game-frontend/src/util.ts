@@ -4,7 +4,7 @@
  * @param toRemove keys to be removed
  * @returns new array with keys removed
  */
-export function filterUserData(keys: string[], toRemove: string[] = ["creator", "lastUpdated", "created", "username", "__notes"]) {
+export function filterUserData(keys: string[], toRemove: string[] = ["creator", "lastUpdated", "created", "username", "notes"]) {
     const __keys = [...keys];
 
     // remove all keys from toRemove
@@ -26,7 +26,7 @@ export function filterUserData(keys: string[], toRemove: string[] = ["creator", 
  */
 export function reorderUserData(keys: string[], order = ["password"]) {
     const __keys = filterUserData(keys, order);
-    return order.concat(__keys);
+    return [...order].concat(__keys);
 }
 
 /**

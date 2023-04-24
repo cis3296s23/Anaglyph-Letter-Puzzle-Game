@@ -1,7 +1,7 @@
 import { PatientEditorReducer } from "@/hooks/PatientEditorReducer";
 import { GetUserResponse } from "@/pages/api/user/get";
 import { PostUserRequest, PostUserResponse } from "@/pages/api/user/post";
-import { filterAndReorderUserData } from "@/util";
+import { filterAndReorderUserData, reorderUserData } from "@/util";
 import axios, { AxiosResponse } from "axios";
 import { DocumentData } from "firebase/firestore";
 import React, { useEffect, useReducer, useState } from "react";
@@ -96,7 +96,7 @@ export default function PatientEditor({ username, closeModel, refresh }: Patient
                         </label>
                         <input
                             type="text"
-                            id={"x"}
+                            id={key}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             placeholder={`${isLoading ? "Loading..." : userState[key]}`}
                             onChange={(e) => dispatch({ type: key, payload: e.target.value })}
@@ -111,8 +111,8 @@ export default function PatientEditor({ username, closeModel, refresh }: Patient
                     rows={4}
                     className="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Write your notes here..."
-                    defaultValue={userState["__notes"] ?? ""}
-                    onChange={(e) => dispatch({ type: "__notes", payload: e.target.value })}
+                    defaultValue={userState["notes"] ?? ""}
+                    onChange={(e) => dispatch({ type: "notes", payload: e.target.value })}
                 ></textarea>
                 <FirebaseErrorPane err={error} />
                 <button
