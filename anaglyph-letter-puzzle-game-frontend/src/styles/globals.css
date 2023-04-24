@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    scroll-behavior: smooth !important;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.custom-bg-blur {
+    background-color: hsla(161, 0%, 100%, 1);
+    background-image: radial-gradient(at 47% 47%, hsla(235, 0%, 100%, 0.58) 0px, transparent 50%),
+        radial-gradient(at 59% 56%, hsla(354, 100%, 46%, 0.29) 0px, transparent 50%),
+        radial-gradient(at 17% 56%, hsla(161, 100%, 55%, 0.57) 0px, transparent 50%),
+        radial-gradient(at 74% 26%, hsla(239, 96%, 75%, 0.67) 0px, transparent 50%);
+}
+
+.shadow-main:nth-child(3n) {
+    @apply shadow-green-200;
+}
+
+.shadow-main:nth-child(3n + 1) {
+    @apply shadow-rose-200;
+}
+
+.shadow-main:nth-child(3n + 2) {
+    @apply shadow-blue-300;
+}
+
+.tranform-icon {
+    position: relative;
+    top: -36px;
+    left: -36px;
+}
+
+.animated-gradient-bg {
+    -webkit-animation: AnimationName 45s ease infinite;
+    -moz-animation: AnimationName 45s ease infinite;
+    animation: AnimationName 45s ease infinite;
+    background: linear-gradient(270deg, rgb(134, 239, 172), rgb(252, 165, 165), rgb(147, 197, 253));
+    background-size: 600% 600%;
+}
+
+.animated-gradient-bg.full-page {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+}
+
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#hover-rm-bg:hover {
+    background: #20b486 !important;
+}
+
+#hover-rm-bg:disabled {
+    background: rgb(100 116 139) !important;
+}
