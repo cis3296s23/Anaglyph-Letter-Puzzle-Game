@@ -1,3 +1,4 @@
+import random
 import sys
 
 import pygame
@@ -61,11 +62,11 @@ class Home:
         min_num_grids = 4
         max_num_grids = 32
         min_rows = 4
-        max_rows = 10
+        max_rows = 8
         min_cols = 4
-        max_cols = 12
+        max_cols = 8
         min_sequ_len = 1
-        max_sequ_len = 4
+        max_sequ_len = 3
         min_num_targets = 1
         max_num_targets = 5
         min_row_space= 1
@@ -93,8 +94,15 @@ class Home:
                 elif event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == start_button:
-                            quick_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color, True)
+                            quick_game = Game_With_Set_Params(random.randint(4,6), random.randint(4,6), random.randint(min_sequ_len, 2), random.randint(min_num_targets, 3), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
                             quick_game.run()
+                            quick_game = Game_With_Set_Params(random.randint(5,6), random.randint(5,6), random.randint(min_sequ_len, 2), random.randint(min_num_targets, 3), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
+                            quick_game.run()
+                            quick_game = Game_With_Set_Params(random.randint(6,7), random.randint(6,7), random.randint(min_sequ_len, 3), random.randint(min_num_targets, 2), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
+                            quick_game.run()
+                            quick_game = Game_With_Set_Params(random.randint(7,8), random.randint(7,8), random.randint(min_sequ_len, 3), random.randint(min_num_targets, 2), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
+                            quick_game.run()
+
                         elif event.ui_element == mode_button:
                             self.mode_page()
                         elif event.ui_element == settings_button:
