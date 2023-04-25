@@ -6,15 +6,15 @@ from dotenv import load_dotenv
 from os import getenv
 
 # connect to database
-import firebase_admin
-from firebase_admin import credentials, firestore
+import firebase_admin 
+from firebase_admin import firestore, credentials
 
 # using this to provide type suggestions
-from google.cloud.firestore import Client as Firestore
+from google.cloud.firestore import Client as Firestore, ArrayUnion
 from google.cloud.firestore_v1.document import DocumentReference, DocumentSnapshot
 
 # typing
-from typing import Union, Dict, Any
+from typing import Union, Dict, Any, List
 
 # loading env for website
 load_dotenv("../anaglyph-letter-puzzle-game-frontend/.env")
@@ -96,19 +96,18 @@ class FirebaseConnection():
         """Sets the user-ref to `None`"""
         self.user_ref = None
 
-
     def set_data_for_user(self, data: Dict, with_timestamp: bool=True) -> bool:
         """Set `data` for the currently logged in user
 
         Args:
             data (Dict): Data to be saved to the user database
-            with_timestamp (bool, optional): save with timestamp or not
+            with_timestamp (bool, optional): Save with timestamp or not, Defaults to True.
 
         Raises:
             ValueError: if there is no logged in user currently
 
         Returns:
-            bool: _description_
+            bool: save success indicator
         """
 
         if self.user_ref is None:
@@ -117,6 +116,35 @@ class FirebaseConnection():
         try:
             self.user_ref.set(data, merge=True)
             if with_timestamp: self.stamp_time()
+        except:
+            return False
+
+        return True
+
+    def save_data_to_array(self, array_name: str, data: Any, with_timestamp: bool=True, throw_type_error=False) -> bool:  
+        """saves data in an array format, it appends to an array in the database
+
+        EXAMPLE: `attribute_name`='abc' -> (database view) abc: [`data`]
+
+        Args:
+            array_name (str): name of the array to be created or appened to in the database
+            data (Any): data to be sent to the array
+            with_timestamp (bool, optional): Save with timestamp or not. Defaults to True.
+
+        Raises:
+            ValueError: if user is not logged in
+
+        Returns:
+            bool: save success indicator
+        """
+
+        if self.user_ref is None:
+            raise ValueError("User not logged in")
+
+        try:         
+            self.user_ref.update({
+                array_name: ArrayUnion([data])
+            })
         except:
             return False
 
@@ -156,4 +184,4 @@ class FirebaseConnection():
             raise KeyError(f"{key} not found in user data")
 
         return user_info.get(key, None)
-        
+

@@ -3,7 +3,7 @@ import PatientsDisplay from "@/components/TherapistPage/PatientsDisplay";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import app from "../../firebase.config";
+import app from "../../../firebase.config";
 
 export default function MyPatients() {
     const router = useRouter();
