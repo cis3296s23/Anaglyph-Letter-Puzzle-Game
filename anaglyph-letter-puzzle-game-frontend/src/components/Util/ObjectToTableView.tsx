@@ -45,7 +45,7 @@ export default function PatientInfoToTableView({ obj }: { obj: Record<any, any> 
                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         LastUpdated
                     </th>
-                    <td className="px-6 py-4 whitespace-pre-wrap">{new Date(obj.lastUpdated).toLocaleDateString()}</td>
+                    <td className="px-6 py-4 whitespace-pre-wrap">{new Date(obj.lastUpdated * 1000).toLocaleDateString()}</td>
                 </tr>
             </tbody>
             {filterUserData(Object.keys(obj), used).map(
