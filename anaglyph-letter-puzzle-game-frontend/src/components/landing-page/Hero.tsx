@@ -34,7 +34,7 @@ const Hero = () => {
                 <div className="flex flex-col justify-center lg-max:items-center">
                     <h2 className="text-2xl font-medium mt-10">Anaglyph Letter Puzzle Game</h2>
                     <h2 className="text-5xl font-black mt-10">Gamifies</h2>
-                    <h2 className="text-4xl font-semibold">vision therapy exercises!</h2>
+                    <h2 className="text-4xl font-semibold xs1-max:text-center">vision therapy exercises!</h2>
 
                     <small className="font-normal mt-1">Strengthen visual perceptual and efficiency skills</small>
                 </div>
