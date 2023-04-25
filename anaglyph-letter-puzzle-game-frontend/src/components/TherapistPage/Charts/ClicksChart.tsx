@@ -17,6 +17,8 @@ interface DBAccArrayElement {
     acc: number;
 }
 
+const Title = ({ title }: { title: string }) => <h2 className="text-xl font-medium mt-3 mb-4 xs1-max:px-4">{title} </h2>;
+
 export default function ClicksChart(props: ClicksChartProps) {
     const [clickData, setClickData] = useState<DBClickArrayElement[]>([]);
     const [accData, setAccData] = useState<DBAccArrayElement[]>([]);
@@ -47,8 +49,6 @@ export default function ClicksChart(props: ClicksChartProps) {
         setClickData(__clickData);
         setAccData(__accData);
     }, [props.data]);
-
-    const Title = ({ title }: { title: string }) => <h2 className="text-xl font-medium mt-3 mb-4 xs1-max:px-4">{title} </h2>;
 
     return (
         <section className="">

@@ -22,7 +22,7 @@ const images = [
         height: 212,
     },
     {
-        src: "https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg",
+        src: "/hero-main.png",
         width: 450,
         height: 250,
     },
@@ -44,8 +44,8 @@ const Hero = () => {
                 </div>
                 <div className="lg:hidden mt-10 flex justify-center ">
                     <Image
-                        alt="placeholder"
-                        src="https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg"
+                        alt="Image of a Data Viz being generated from patient Data"
+                        src="/hero-main.png"
                         height={562}
                         width={842}
                         className="w-[450px] rounded-md shadow-2xl sm-max:w-96 xs2-max:rounded-t-none"
