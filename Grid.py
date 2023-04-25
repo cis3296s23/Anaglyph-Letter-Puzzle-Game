@@ -6,7 +6,7 @@ class Grid:
     def __init__(self, rows, cols, sequ_len, num_targets, row_space, col_space):
         self.rows = rows
         self.cols = cols
-        self.grid_size = rows * cols
+        self.grid_size = self.rows * self.cols
         self.sequ_len = sequ_len
         self.num_targets = num_targets
         self.row_space = row_space
@@ -33,6 +33,7 @@ class Grid:
         self.pick_target_sequence_and_remove()
         # self.generate_2d_grid()
         self.generate_grid()
+
 
     def generate_letter_bank(self):
         sim_pair = r.choice(self.similar_pairs)
