@@ -14,7 +14,6 @@ export default function SignInWithGoogle() {
 
         // no need for a .then we are not doing anything with the resulting cred
         signInWithPopup(auth, provider)
-            .then((cred) => console.log(cred))
             .catch((err) => {
                 console.error(err);
             })
