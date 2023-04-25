@@ -42,7 +42,7 @@ export default function SignIn() {
     };
 
     return (
-        <div className="rounded-lg w-10/12 border max-w-[640px] px-8 py-5 shadow-lg bg-white">
+        <div className="rounded-lg w-10/12 border max-w-[640px] px-8 py-5 shadow-lg bg-white xs1-max:px-4">
             <h2 className="font-bold text-3xl mid-max:text-2xl border-b-4 pb-2">Sign In</h2>
             <form className="flex flex-col gap-5 text-gray-600 mt-4" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-1">

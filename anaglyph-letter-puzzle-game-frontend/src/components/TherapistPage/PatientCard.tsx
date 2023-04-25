@@ -33,7 +33,7 @@ export default function PatientCards(props: PatientCardProps) {
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 py-3 xs2-max:px-3">
                             Username
                         </th>
                         <th scope="col" className="px-6 py-3 md-max:hidden">
@@ -42,13 +42,13 @@ export default function PatientCards(props: PatientCardProps) {
                         <th scope="col" className="px-6 py-3 md-max:hidden">
                             Date Created
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 py-3 xs2-max:px-3">
                             Delete
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 py-3 xs2-max:px-3">
                             Edit
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 py-3 xs2-max:px-3">
                             View Info
                         </th>
                     </tr>
@@ -56,22 +56,22 @@ export default function PatientCards(props: PatientCardProps) {
                 <tbody>
                     {props.users.map((user) => (
                         <tr className="bg-white border-b" key={user.username}>
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap xs2-max:px-3">
                                 {user.username}
                             </th>
-                            <td className="px-6 py-4 md-max:hidden">{user.password}</td>
-                            <td className="px-6 py-4 md-max:hidden">{new Date(user.created).toLocaleDateString()}</td>
-                            <td className="px-6 py-4 text-center">
+                            <td className="px-6 py-4 md-max:hidden xs2-max:px-3">{user.password}</td>
+                            <td className="px-6 py-4 md-max:hidden xs2-max:px-3">{new Date(user.created).toLocaleDateString()}</td>
+                            <td className="px-6 py-4 text-center xs2-max:px-3">
                                 <button type="button" onClick={() => handleDelete(user.username)}>
                                     <TbTrashXFilled size={20} className="text-rose-500 hover:text-rose-700" />
                                 </button>
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className="px-6 py-4 text-center xs2-max:px-3">
                                 <button type="button" onClick={() => props.handleEditUser(user.username)}>
                                     <FaUserEdit size={20} className="text-blue-500 hover:text-blue-700" />
                                 </button>
                             </td>
-                            <td className="px-6 py-4 text-center">
+                            <td className="px-6 py-4 text-center xs2-max:px-3">
                                 <Link type="button" href={`/my-patients/${user.username}`} className="w-full flex justify-center">
                                     <AiFillEye size={20} className="text-gray-500 hover:text-black" />
                                 </Link>
