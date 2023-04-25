@@ -185,3 +185,11 @@ class FirebaseConnection():
 
         return user_info.get(key, None)
 
+if __name__ == '__main__':
+    import random, datetime
+    FC = FirebaseConnection()
+    FC.login('asd', '1')
+
+    for _ in range(10):
+        R = random.randint(1, 24)
+        print(FC.save_data_to_array('clicks', {'total': R+5, 'correct': R,}))

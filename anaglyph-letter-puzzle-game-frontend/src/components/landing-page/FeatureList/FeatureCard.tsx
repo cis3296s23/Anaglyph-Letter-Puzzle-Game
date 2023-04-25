@@ -1,6 +1,6 @@
 import React from "react";
 
-interface FeatureCardProps {
+export interface FeatureCardProps {
     statement: string;
     icon: React.ReactNode;
     name: string;
