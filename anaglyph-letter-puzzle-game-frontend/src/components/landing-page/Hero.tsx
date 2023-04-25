@@ -9,13 +9,13 @@ const images = [
         height: 174,
     },
     {
-        src: "/hero-2.png",
+        src: "/hero-3.png",
         width: 320,
         height: 212,
     },
 
     {
-        src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
+        src: "/hero-4.png",
         width: 320,
         height: 212,
     },
@@ -32,10 +32,11 @@ const Hero = () => {
         <main className="font-inter min-h-[600px] custom-bg-blur border-b py-10">
             <section className="grid grid-cols-2 pt-4 mx-auto w-[1200px] lg-max:grid-cols-1 lg-max:w-full xl-max:w-[1000px]">
                 <div className="flex flex-col justify-center lg-max:items-center">
-                    <h2 className="text-2xl font-medium mt-10">Product Line 1</h2>
-                    <h2 className="text-4xl font-semibold mt-10">This is a sentence</h2>
-                    <h2 className="text-5xl font-black">Keyword</h2>
-                    <small className="font-normal mt-1">Some random Platitude</small>
+                    <h2 className="text-2xl font-medium mt-10">Anaglyph Letter Puzzle Game</h2>
+                    <h2 className="text-5xl font-black mt-10">Gamifies</h2>
+                    <h2 className="text-4xl font-semibold">vision therapy exercises!</h2>
+
+                    <small className="font-normal mt-1">Strengthen visual perceptual and efficiency skills</small>
                 </div>
                 <div className="lg-max:hidden">
                     <Gallery images={images} enableImageSelection={false} />
