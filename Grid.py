@@ -16,38 +16,23 @@ class Grid:
         self.sequ_bank = []
         self.diff_sequ = m.ceil(self.grid_size // 2)
         self.letter_bank_size = m.ceil(self.sequ_len * 1.5)
-        self.similar_pairs = ['bd', 'pq', 'kx', 'co', 'mn', 'ec', 'il', 'wv','sz']
+        self.similar_pairs = ['bd', 'pq', 'oe', 'co', 'mn', 'ec', 'il', 'wv', 'gq', ]
         self.target_indices = []
         self.sim_pair = ''
         self.target = ''
         self.other = ''
         self.sequ_bank_target_removed = []
-        # self.space_btn_rows = ""
-        # self.space_btn_cols = ""
         self.grid = [[' ' for _ in range(cols)] for _ in range(rows)]
         self.rect = pg.Rect(0, 0, cols * col_space, rows * row_space)
         self.font = pg.font.SysFont(None, 30)  # choose a font and font size
         self.grid_list = []
+        self.targets_left = self.num_targets
         self.generate_letter_bank()
         self.generate_sequ_bank()
         self.generate_target_indices()
         self.pick_target_sequence_and_remove()
         # self.generate_2d_grid()
         self.generate_grid()
-
-
-    def generate_letter_bank_x(self):
-        sim_pair = r.choice(self.similar_pairs)
-        if self.sequ_len == 1 or self.sequ_len == 2:
-            self.letter_bank = [str(c) for c in sim_pair]
-        else:
-            vowels = ['a', 'e', 'i', 'o', 'u']
-            for i in range(self.letter_bank_size):
-                letter = (r.choice(s.ascii_lowercase))
-                if letter not in vowels and letter not in self.letter_bank:
-                    self.letter_bank.append(letter)
-
-        print(self.letter_bank)
 
     def generate_letter_bank(self):
         sim_pair = r.choice(self.similar_pairs)
@@ -146,34 +131,34 @@ class Grid:
                 self.grid_list.append(rand_sequ)
         print(self.grid_list)
 
-    def generate_2d_grid_cols_dont_line_up(self):
-        if not self.letter_bank:
-            self.generate_letter_bank()
-        if not self.sequ_bank:
-            self.generate_sequ_bank()
-        if not self.target_indices:
-            self.generate_target_indices()
-        if not self.target:
-            self.pick_target_sequence_and_remove()
-
-        # Fill the grid list with targets at target indices or random sequences
-        grid_list = []
-        for i in range(self.grid_size):
-            if i in self.target_indices:
-                grid_list.append(self.target)
-            else:
-                rand_sequ = r.choice(self.sequ_bank_target_removed)
-                grid_list.append(rand_sequ)
-            grid_list.extend([''] * self.col_space)
-
-        # Add new line character after each row
-        grid_list.extend(['\n'] * self.row_space)
-
-        # Convert the grid list into a 2D grid split by rows and columns
-        self.grid = [grid_list[i:i + self.cols + self.space_btn_cols] for i in
-                     range(0, len(grid_list), self.cols + self.space_btn_cols)]
-        self.grid = [self.row_space.join(row).rstrip(self.row_space) for row in self.grid]
-        self.grid = '\n'.join(self.grid)
-
-        print(self.grid)
+    # def generate_2d_grid_cols_dont_line_up(self):
+    #     if not self.letter_bank:
+    #         self.generate_letter_bank()
+    #     if not self.sequ_bank:
+    #         self.generate_sequ_bank()
+    #     if not self.target_indices:
+    #         self.generate_target_indices()
+    #     if not self.target:
+    #         self.pick_target_sequence_and_remove()
+    #
+    #     # Fill the grid list with targets at target indices or random sequences
+    #     grid_list = []
+    #     for i in range(self.grid_size):
+    #         if i in self.target_indices:
+    #             grid_list.append(self.target)
+    #         else:
+    #             rand_sequ = r.choice(self.sequ_bank_target_removed)
+    #             grid_list.append(rand_sequ)
+    #         grid_list.extend([''] * self.col_space)
+    #
+    #     # Add new line character after each row
+    #     grid_list.extend(['\n'] * self.row_space)
+    #
+    #     # Convert the grid list into a 2D grid split by rows and columns
+    #     self.grid = [grid_list[i:i + self.cols + self.space_btn_cols] for i in
+    #                  range(0, len(grid_list), self.cols + self.space_btn_cols)]
+    #     self.grid = [self.row_space.join(row).rstrip(self.row_space) for row in self.grid]
+    #     self.grid = '\n'.join(self.grid)
+    #
+    #     print(self.grid)
 
