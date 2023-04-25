@@ -89,20 +89,23 @@ export default function PatientEditor({ username, closeModel, refresh }: Patient
                     disabled
                     readOnly
                 ></input>
-                {filterAndReorderUserData(Object.keys(userState)).map((key) => (
-                    <div className="mb-6" key={key}>
-                        <label htmlFor={key} className="block mb-2 text-sm font-medium text-gray-900">
-                            {key}
-                        </label>
-                        <input
-                            type="text"
-                            id={key}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder={`${isLoading ? "Loading..." : userState[key]}`}
-                            onChange={(e) => dispatch({ type: key, payload: e.target.value })}
-                        />
-                    </div>
-                ))}
+                {filterAndReorderUserData(Object.keys(userState)).map(
+                    (key) =>
+                        typeof userState[key] !== "object" && (
+                            <div className="mb-6" key={key}>
+                                <label htmlFor={key} className="block mb-2 text-sm font-medium text-gray-900">
+                                    {key}
+                                </label>
+                                <input
+                                    type="text"
+                                    id={key}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder={`${isLoading ? "Loading..." : userState[key]}`}
+                                    onChange={(e) => dispatch({ type: key, payload: e.target.value })}
+                                />
+                            </div>
+                        )
+                )}
                 <label htmlFor="notes" className="block mb-2 text-sm font-medium text-gray-900">
                     Your Notes
                 </label>
