@@ -100,11 +100,11 @@ class Game_With_Set_Params:
 
             self.grids.append(new_grid)
         for i2 in range(2):
-            self.rows = r.randint(5, 6)
-            self.cols = 4
-            self.sequ_len = 2
-            self.num_targets = r.randint(2, 3)
-            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            rows = r.randint(5, 6)
+            cols = 4
+            sequ_len = 2
+            num_targets = r.randint(2, 3)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             print(new_grid.rows)
 
             print(new_grid.cols)
@@ -114,36 +114,36 @@ class Game_With_Set_Params:
         for i3 in range(2):
             rows = 5
             cols = r.randint(5, 7)
-            self.sequ_len = r.randint(2,3)
-            self.num_targets = r.randint(3, 4)
-            new_grid = Grid(rows, cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            sequ_len = r.randint(2,3)
+            num_targets = r.randint(3, 4)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             print(new_grid.rows)
 
             print(new_grid.cols)
             print(new_grid.grid_size)
             self.grids.append(new_grid)
         for i4 in range(2):
-            self.rows = r.randint(5,6)
-            self.cols = r.randint(6,7)
-            self.sequ_len = r.randint(2,3)
-            self.num_targets = r.randint(2,4)
-            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            rows = r.randint(5,6)
+            cols = r.randint(6,7)
+            sequ_len = r.randint(2,3)
+            num_targets = r.randint(2,4)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
             print(new_grid.grid_size)
         for i5 in range(2):
-            self.rows = r.randint(5,6)
-            self.cols = r.randint(5,6)
-            self.sequ_len = r.randint(2,3)
-            self.num_targets = r.randint(4,5)
-            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            rows = r.randint(5,6)
+            cols = r.randint(5,6)
+            sequ_len = r.randint(2,3)
+            num_targets = r.randint(4,5)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
             print(new_grid.grid_size)
         for i6 in range(7):
-            self.rows = r.randint(4,5)
-            self.cols = r.randint(4,6)
-            self.sequ_len = 3
-            self.num_targets = r.randint(1,2)
-            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            rows = r.randint(4,5)
+            cols = r.randint(4,6)
+            sequ_len = 3
+            num_targets = r.randint(1,2)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
 
         for i7 in range(2):
@@ -151,7 +151,7 @@ class Game_With_Set_Params:
             self.cols = r.randint(6,7)
             self.sequ_len = 3
             self.num_targets = r.randint(1,2)
-            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
 
 
