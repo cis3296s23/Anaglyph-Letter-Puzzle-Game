@@ -48,7 +48,7 @@ def menu_page():
                     elif event.ui_element == settings_button:
                         redirect_proof_of_concpt_page()
                     elif event.ui_element == help_button:
-                        redirect_proof_of_concpt_page()
+                        help_page()
                     elif event.ui_element == login_button:
                         redirect_proof_of_concpt_page()
                     elif event.ui_element == quit_button:
@@ -216,6 +216,79 @@ def redirect_proof_of_concpt_page():
     pygame.quit()
 
 
+
+
+def display_text(surface, text, pos, font, color): 
+    #can write on mutiple lines, good for long sentences/descriptions
+    collection = [word.split(' ') for word in text.splitlines() ]
+    space = font.size(' ')[0]
+    x,y = pos 
+    for lines in collection: 
+        for words in lines: 
+            word_surface = font.render(words, True, color)
+            word_width , word_height = word_surface.get_size()
+            if x + word_width >= 1240: 
+                x = pos[0] 
+                y += word_height 
+            surface.blit(word_surface, (x,y)) 
+            x += word_width + space 
+        x = pos[0]
+        y += word_height
+    
+
+
+def help_page():
+    global manager
+    pygame.display.set_caption("Help Page")
+    manager = pygame_gui.UIManager((screen_width, screen_height))
+    back_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(
+            (right, 10),
+            (button_width, button_height)),
+        text="Back",
+        manager=manager)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == back_button:
+                        back_to_menu()
+            manager.process_events(event)
+        manager.update(pygame.time.get_ticks() / 1000.0)
+        text = "Background:"
+        text1 = "The Anaglyph Letter Puzzle Game is a visual puzzle that challenges you,the player,to identify a single letter that is different from the others in a grid of identical letters."
+        text2 = "How to Play:"
+        text3 = "To play, you must examine the grid closely and identify the unique letter, which may be a different size, color, or orientation than the other letters in the grid."
+        text4 = "Mode Select:" 
+        text5 = "In Mode Select, the level of difficulty can be altered to your liking. Use the buttons to decrease or increase the level of your grid." 
+        text6 = "Settings:" 
+        text7 = "The are different parameters that you change to personalize your game experience. You can change the time allotted, the colors for the grid, and size of the characters."
+        text8 = "Login:" 
+        text9 = "To track your progress as a patient, enter your username and password. If you are a healthcare professional, please enter your username and work pin number."
+        font = pygame.font.SysFont(None, 26)
+        screen.fill((0, 0, 0))
+        manager.draw_ui(screen)
+        display_text(screen,text, (350,45), font, 'gray') 
+        #the space between title and expl: 40 , from past exp to new title: 95
+        display_text(screen, text1, (350,85), font, 'gray')
+        display_text(screen, text2, (350,180), font, 'gray')
+        display_text(screen, text3, (350, 220), font, 'gray')
+        display_text(screen, text4, (350,315), font, 'gray')
+        display_text(screen, text5, (350,355), font, 'gray')
+        display_text(screen, text6, (350,450), font, 'gray')
+        display_text(screen, text7, (350,490), font, 'gray')
+        display_text(screen, text8, (350,585), font, 'gray')
+        display_text(screen, text9, (350,625), font, 'gray')
+        
+        pygame.display.update()
+    pygame.quit() 
+
+
+
+
 def login_page():
     global manager
     x = middle
@@ -255,3 +328,4 @@ def login_page():
 
 
 menu_page()
+
