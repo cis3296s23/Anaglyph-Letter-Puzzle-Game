@@ -16,7 +16,7 @@ class Game_With_Set_Params:
         self.sequ_len = sequ_len
         self.num_targets = num_targets
         self.row_space = row_space
-        self.col_space = col_space
+        self.col_space = 2
         self.num_grids = num_grids
         self.letter_bank = []
         self.sequ_bank = []
@@ -32,7 +32,7 @@ class Game_With_Set_Params:
         self.generate_grids()
         self.grids_completed = 0  # tracks the number of completed grids
         self.color_found = (0, 0, 0)
-        self.quick  = quick
+        self.quick = quick
 
         pg.init()
         info = pg.display.Info()
@@ -67,8 +67,8 @@ class Game_With_Set_Params:
         # self.grid_y = (self.screen_height - self.grid_height) / 2
         # self.grid_x = (self.screen_width - self.grid_width) // 2
         # self.grid_y = (self.screen_height - self.grid_height) // 2
-        self.grid_x = (self.screen_width - self.grid_width) // 2 -120
-        self.grid_y = (self.screen_height - self.grid_height) // 2-120
+        self.grid_x = (self.screen_width - self.grid_width) // 2 -100
+        self.grid_y = (self.screen_height - self.grid_height) // 2-100
 
 
         self.target_indices = []
@@ -91,7 +91,7 @@ class Game_With_Set_Params:
             cols = r.randint(4,5)
             sequ_len = r.randint(1, 2)
             num_targets = r.randint(1, 3)
-            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
+            new_grid = Grid(self.rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
 
             print(new_grid.rows)
 
@@ -155,7 +155,6 @@ class Game_With_Set_Params:
             self.grids.append(new_grid)
 
 
-
     def draw_grid(self, current_grid, screen, targets_left):
         for i in range(self.grid_size):
             target_text = "Target sequence: " + "".join(current_grid.target)
@@ -207,10 +206,16 @@ class Game_With_Set_Params:
         self.manager = pg_gui.UIManager((self.screen_width, self.screen_height))
         self.grids = []
         if self.quick == False:
+            self.grids = []
             self.generate_grids()
         elif self.quick == True:
-            self.num_grids = 14
-            self.generate_quick_grids()
+            self.grids = []
+            self.num_grids = 5
+            self.rows = r.randint(4,5)
+            self.cols = r.randint(4,5)
+            self.sequ_len = r.randint(1, 2)
+            num_targets = r.randint(1, 3)
+            self.generate_grids()
         running = True
         target_count = 0
         self.grids_completed = 0
