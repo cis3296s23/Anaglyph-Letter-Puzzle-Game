@@ -47,7 +47,7 @@ export default function Patients(props: PatientsProps) {
     const closeModal = () => setEditingUser(null);
 
     return (
-        <div className="flex gap-10 mt-10 justify-center mid-max:flex-col mid-max:items-center mb-20">
+        <div className="flex gap-10 mt-10 justify-center mid-max:flex-col mid-max:items-center mb-20 xs1-max:mx-4">
             <AddPatientForm therapistUid={props.user?.uid} refresh={refresh} />
             <div className="flex flex-col gap-4">
                 <h2 className="font-semibold text-2xl">Your Patients</h2>

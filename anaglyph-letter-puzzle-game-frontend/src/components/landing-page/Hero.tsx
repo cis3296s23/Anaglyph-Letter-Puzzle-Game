@@ -48,7 +48,7 @@ const Hero = () => {
                         src="https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg"
                         height={562}
                         width={842}
-                        className="w-[450px] rounded-md shadow-2xl sm-max:w-96"
+                        className="w-[450px] rounded-md shadow-2xl sm-max:w-96 xs2-max:rounded-t-none"
                     />
                 </div>
             </section>

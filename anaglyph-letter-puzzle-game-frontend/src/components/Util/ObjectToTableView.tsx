@@ -5,23 +5,23 @@ export default function PatientInfoToTableView({ obj }: { obj: Record<any, any> 
     const used = ["username", "password", "created", "lastUpdated"];
 
     return (
-        <table className="w-full text-sm text-left text-gray-500">
+        <table className="w-full text-sm text-left text-gray-500 p-4 xs1-max:text-xs">
             <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
-                    <th scope="col" className="px-6 py-3 rounded-l-lg">
+                    <th scope="col" className="px-6 py-3 rounded-l-lg ">
                         Attribute
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 ">
                         Saved Value
                     </th>
                 </tr>
             </thead>
             <tbody className="border-b-[1px]">
                 <tr className="bg-white">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         Username
                     </th>
-                    <td className="px-6 py-4 whitespace-pre-wrap">{obj.username ?? "error"}</td>
+                    <td className="px-6 py-4 whitespace-pre-wrap ">{obj.username ?? "error"}</td>
                 </tr>
             </tbody>
             <tbody className="border-b-[1px]">

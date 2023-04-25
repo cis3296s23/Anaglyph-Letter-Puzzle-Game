@@ -26,7 +26,7 @@ export default function SignInWithGoogle() {
             type="button"
             className="p-2 flex justify-center items-center w-full gap-3 text-xl bg-black text-white rounded-lg hover:bg-gray-700"
         >
-            <FcGoogle size={32} /> <p className="font-semibold">Continue with Google</p>
+            <FcGoogle size={32} className="xs1-max:text-lg" /> <p className="font-semibold xs1-max:text-lg">Continue with Google</p>
         </button>
     );
 }

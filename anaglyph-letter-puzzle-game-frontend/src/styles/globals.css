@@ -99,7 +99,7 @@ select {
 }
 
 .tranform-icon {
-    position: relative;
+    position: absolute;
     top: -36px;
     left: -36px;
 }

@@ -48,11 +48,13 @@ export default function ClicksChart(props: ClicksChartProps) {
         setAccData(__accData);
     }, [props.data]);
 
+    const Title = ({ title }: { title: string }) => <h2 className="text-xl font-medium mt-3 mb-4 xs1-max:px-4">{title} </h2>;
+
     return (
         <section className="">
             {clickData && (
                 <div className="my-6">
-                    <h2 className="text-xl font-medium mt-3 my-8">Total Clicks vs Correct Clicks</h2>
+                    <Title title="Total Clicks vs Correct Clicks" />
                     <ResponsiveContainer minWidth={250} minHeight={300}>
                         <LineChart
                             width={500}
@@ -78,7 +80,7 @@ export default function ClicksChart(props: ClicksChartProps) {
             )}
             {accData && (
                 <div className="my-6">
-                    <h2 className="text-xl font-medium mt-3 my-8">Accuracy Score </h2>
+                    <Title title="Accuracy" />
                     <ResponsiveContainer minWidth={250} minHeight={300}>
                         <LineChart
                             width={500}
