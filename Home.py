@@ -54,9 +54,25 @@ class Home:
     top = 10
     font = pygame.font.SysFont(None, 100)
 
+
     def menu_page(self):
         x = self.middle
         y = 200
+        min_num_grids = 4
+        max_num_grids = 32
+        min_rows = 4
+        max_rows = 10
+        min_cols = 4
+        max_cols = 12
+        min_sequ_len = 1
+        max_sequ_len = 4
+        min_num_targets = 1
+        max_num_targets = 5
+        min_row_space= 1
+        max_row_space = 3
+        min_col_space = 1
+        max_col_space = 5
+
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
 
         title_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle, 100), (self.button_width, self.button_height)),
@@ -77,9 +93,8 @@ class Home:
                 elif event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == start_button:
-                            Game.main()
-                            if Game.target_count ==0:
-                                self.back_to_menu()
+                            quick_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color, True)
+                            quick_game.run()
                         elif event.ui_element == mode_button:
                             self.mode_page()
                         elif event.ui_element == settings_button:
@@ -170,7 +185,7 @@ class Home:
         clock = pygame.time.Clock()
         running = True
 
-        new_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color)
+        new_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color, False)
         new_game.left_color = self.left_color
         new_game.right_color = self.right_color
 
@@ -262,7 +277,6 @@ class Home:
             self.manager.draw_ui(self.screen)
             pygame.display.update()
 
-
     def color_picker_page(self, side):
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
         background = pygame.Surface((self.screen_width, self.screen_height))
@@ -331,7 +345,6 @@ class Home:
             # screen.fill((0, 0, 0))
             self.manager.draw_ui(self.screen)
             pygame.display.update()
-
 
     def reset_colors(self):
         self.left_color = self.prev_left
@@ -416,7 +429,6 @@ class Home:
             rect2 = pygame.draw.rect(self.screen, self.right_color, pygame.Rect(700, 150, 60, 60))
             pygame.display.flip()
 
-
     def menu_loop(self, back_button, manager):
         running = True
         clock = pygame.time.Clock()
@@ -471,7 +483,6 @@ class Home:
             manager.draw_ui(self.screen)
             pygame.display.update()
         pygame.quit()
-
 
     def display_text(self, surface, text, pos, font):
         # can write on mutiple lines, good for long sentences/descriptions

@@ -1,3 +1,5 @@
+import sys
+
 import pygame as pg
 import pygame_gui as pg_gui
 import math as m
@@ -7,10 +9,10 @@ from Grid import Grid
 
 
 class Game_With_Set_Params:
-    def __init__(self, rows, cols, sequ_len, num_targets, row_space, col_space, num_grids):
+    def __init__(self, rows, cols, sequ_len, num_targets, row_space, col_space, num_grids, right_color, left_color, quick):
         self.rows = rows
         self.cols = cols
-        self.grid_size = rows * cols
+        self.grid_size = self.rows * self.cols
         self.sequ_len = sequ_len
         self.num_targets = num_targets
         self.row_space = row_space
@@ -30,6 +32,7 @@ class Game_With_Set_Params:
         self.generate_grids()
         self.grids_completed = 0  # tracks the number of completed grids
         self.color_found = (0, 0, 0)
+        self.quick  = quick
 
         pg.init()
         info = pg.display.Info()
@@ -40,7 +43,7 @@ class Game_With_Set_Params:
         self.manager = pg_gui.UIManager((self.screen_width, self.screen_height))
 
         # Load font and calculate cell size for grid drawing
-        self.font_size = 60
+        self.font_size = 50
         self.font = pg.font.Font(None, self.font_size)
         sequ_surface = self.font.render(self.target, True, (0,0,0))
         self.sequ_width = sequ_surface.get_rect().width
@@ -62,11 +65,16 @@ class Game_With_Set_Params:
         # Calculate grid position for centering on screen
         # self.grid_x = (self.screen_width - self.grid_width) / 2
         # self.grid_y = (self.screen_height - self.grid_height) / 2
-        self.grid_x = (self.screen_width - self.grid_width) // 2
-        self.grid_y = (self.screen_height - self.grid_height) // 2
+        # self.grid_x = (self.screen_width - self.grid_width) // 2
+        # self.grid_y = (self.screen_height - self.grid_height) // 2
+        self.grid_x = (self.screen_width - self.grid_width) // 2 -120
+        self.grid_y = (self.screen_height - self.grid_height) // 2-120
+
 
         self.target_indices = []
         self.already_found = []
+        self.right_color = right_color
+        self.left_color = left_color
 
 
 
@@ -75,15 +83,92 @@ class Game_With_Set_Params:
             new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
             self.grids.append(new_grid)
 
+    def generate_quick_grids(self):
+
+        for i1 in range(2):
+
+            rows = r.randint(4,5)
+            cols = r.randint(4,5)
+            sequ_len = r.randint(1, 2)
+            num_targets = r.randint(1, 3)
+            new_grid = Grid(rows,cols, sequ_len, num_targets, self.row_space, self.col_space)
+
+            print(new_grid.rows)
+
+            print(new_grid.cols)
+            print(new_grid.grid_size)
+
+            self.grids.append(new_grid)
+        for i2 in range(2):
+            self.rows = r.randint(5, 6)
+            self.cols = 4
+            self.sequ_len = 2
+            self.num_targets = r.randint(2, 3)
+            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            print(new_grid.rows)
+
+            print(new_grid.cols)
+            print(new_grid.grid_size)
+            self.grids.append(new_grid)
+
+        for i3 in range(2):
+            rows = 5
+            cols = r.randint(5, 7)
+            self.sequ_len = r.randint(2,3)
+            self.num_targets = r.randint(3, 4)
+            new_grid = Grid(rows, cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            print(new_grid.rows)
+
+            print(new_grid.cols)
+            print(new_grid.grid_size)
+            self.grids.append(new_grid)
+        for i4 in range(2):
+            self.rows = r.randint(5,6)
+            self.cols = r.randint(6,7)
+            self.sequ_len = r.randint(2,3)
+            self.num_targets = r.randint(2,4)
+            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            self.grids.append(new_grid)
+            print(new_grid.grid_size)
+        for i5 in range(2):
+            self.rows = r.randint(5,6)
+            self.cols = r.randint(5,6)
+            self.sequ_len = r.randint(2,3)
+            self.num_targets = r.randint(4,5)
+            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            self.grids.append(new_grid)
+            print(new_grid.grid_size)
+        for i6 in range(7):
+            self.rows = r.randint(4,5)
+            self.cols = r.randint(4,6)
+            self.sequ_len = 3
+            self.num_targets = r.randint(1,2)
+            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            self.grids.append(new_grid)
+
+        for i7 in range(2):
+            self.rows = r.randint(5,6)
+            self.cols = r.randint(6,7)
+            self.sequ_len = 3
+            self.num_targets = r.randint(1,2)
+            new_grid = Grid(self.rows, self.cols, self.sequ_len, self.num_targets, self.row_space, self.col_space)
+            self.grids.append(new_grid)
+
+
+
     def draw_grid(self, current_grid, screen, targets_left):
-        for i in range(len(current_grid.grid_list)):
-            print(current_grid.target)
-            target_text = "Target sequences: " + "".join(current_grid.target)
-            print(target_text)
+        for i in range(self.grid_size):
+            target_text = "Target sequence: " + "".join(current_grid.target)
             target_surface = self.font.render(target_text, True, (255, 255, 255))
             target_rect = target_surface.get_rect()
             target_rect.topleft = (10, 10)
             screen.blit(target_surface, target_rect)
+            esc_text = "Press escape to exit"
+            esc_surface = self.font.render(esc_text, True, (255,255,255))
+            esc_rect = esc_surface.get_rect()
+            esc_rect.bottomleft = (10, self.screen_height- 150)
+            screen.blit(esc_surface, esc_rect)
+
             sequ = current_grid.grid_list[i]
             if i in self.already_found:
                 sequ = ""
@@ -91,27 +176,25 @@ class Game_With_Set_Params:
             #     sequ = current_grid.grid_list[i]
             row = i // self.cols
             col = i % self.cols
-            color = (255, 255, 255)
-            # if i in self.already_found:
-            #     color = (0,0,0) # change color of already found target
-            # else:
-            #     color = (255, 255, 255)
+            if i % 2 == 1:
+                color = self.right_color
+            else:
+                color = self.left_color
+            # color = (255, 255, 255)
             text_surface = self.font.render(sequ, True, color)
             rect = text_surface.get_rect()
             rect.center = (
             (col * self.cell_width) + (self.cell_width / 2) + self.grid_x + col * self.col_space_render,
             (row * self.cell_height) + (self.cell_height / 2) + self.grid_y + row * self.row_space)
 
-            # rect = text_surface.get_rect()
-            # rect.center = ((col * self.cell_width + 5) + (self.cell_width / 2) + self.grid_x + col * self.col_space_render,
-            #                (row * self.cell_height) + (self.cell_height / 2) + self.grid_y + row * self.row_space)
-            screen.blit(text_surface, rect)
             if targets_left > 0:
                 remaining_text = f"Targets remaining: {targets_left}"
-                remaining_surface = self.font.render(remaining_text, True, color)
+                remaining_surface = self.font.render(remaining_text, True, (255,255,255))
                 remaining_rect = remaining_surface.get_rect()
-                remaining_rect.topright = (self.screen_width - 10, 10)
+                remaining_rect.topleft = (10, 100)
                 screen.blit(remaining_surface, remaining_rect)
+            screen.blit(text_surface, rect)
+
 
 
     def run(self):
@@ -123,13 +206,17 @@ class Game_With_Set_Params:
         self.screen = pg.display.set_mode((self.screen_width, self.screen_height))
         self.manager = pg_gui.UIManager((self.screen_width, self.screen_height))
         self.grids = []
-        self.generate_grids()
+        if self.quick == False:
+            self.generate_grids()
+        elif self.quick == True:
+            self.num_grids = 14
+            self.generate_quick_grids()
         running = True
         target_count = 0
         self.grids_completed = 0
         current_grid = self.grids[self.grids_completed]
         self.already_found = []
-
+        print(current_grid.grid_list)
         self.target_indices = current_grid.target_indices
 
         while running:
@@ -141,7 +228,13 @@ class Game_With_Set_Params:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
-                elif event.type == pg.MOUSEBUTTONDOWN:
+                    pg.quit()
+                    sys.exit()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        return
+
+                if event.type == pg.MOUSEBUTTONDOWN:
                     mouse_pos = pg.mouse.get_pos()
 
                     clicked_col = (mouse_pos[0] - self.grid_x) // (self.cell_width + self.col_space_render)
