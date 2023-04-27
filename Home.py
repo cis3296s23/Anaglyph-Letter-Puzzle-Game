@@ -5,6 +5,7 @@ import pygame
 import pygame_gui
 from pygame_gui.elements import UIButton
 from pygame_gui.windows import UIColourPickerDialog
+import random as r
 
 from Game_With_Set_Params import Game_With_Set_Params
 import Game
@@ -33,6 +34,25 @@ class Home:
         self.prev_left = self.left_color
         self.prev_right = self.right_color
 
+        self.min_num_grids = 4
+        self.max_num_grids = 32
+        self.min_rows = 4
+        self.max_rows = 10
+        self.min_cols = 4
+        self.max_cols = 12
+        self.min_sequ_len = 1
+        self.max_sequ_len = 4
+        self.min_num_targets = 1
+        self.max_num_targets = 5
+        self.min_row_space= 1
+        self.max_row_space = 3
+        self.min_col_space = 1
+        self.max_col_space = 5
+        self.arrow_gap = 100
+        self.label_width = 150
+
+
+
     def back_to_menu(self):
         pygame.display.set_caption("Letter Puzzle")
         self.manager = pygame_gui.UIManager((self.screen.get_width(), self.screen.get_height()))
@@ -59,20 +79,6 @@ class Home:
     def menu_page(self):
         x = self.middle
         y = 200
-        min_num_grids = 4
-        max_num_grids = 32
-        min_rows = 4
-        max_rows = 8
-        min_cols = 4
-        max_cols = 8
-        min_sequ_len = 1
-        max_sequ_len = 3
-        min_num_targets = 1
-        max_num_targets = 5
-        min_row_space= 1
-        max_row_space = 3
-        min_col_space = 1
-        max_col_space = 5
 
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
 
@@ -94,15 +100,7 @@ class Home:
                 elif event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == start_button:
-                            quick_game = Game_With_Set_Params(random.randint(4,6), random.randint(4,6), random.randint(min_sequ_len, 2), random.randint(min_num_targets, 3), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
-                            quick_game.run()
-                            quick_game = Game_With_Set_Params(random.randint(5,6), random.randint(5,6), random.randint(min_sequ_len, 2), random.randint(min_num_targets, 3), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
-                            quick_game.run()
-                            quick_game = Game_With_Set_Params(random.randint(6,7), random.randint(6,7), random.randint(min_sequ_len, 3), random.randint(min_num_targets, 2), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
-                            quick_game.run()
-                            quick_game = Game_With_Set_Params(random.randint(7,8), random.randint(7,8), random.randint(min_sequ_len, 3), random.randint(min_num_targets, 2), min_row_space, min_col_space, 3, self.right_color, self.left_color, False)
-                            quick_game.run()
-
+                            running = False
                         elif event.ui_element == mode_button:
                             self.mode_page()
                         elif event.ui_element == settings_button:
@@ -120,6 +118,8 @@ class Home:
             pygame.display.update()
         pygame.quit()
 
+
+
     def back_to_menu(self):
         pygame.display.set_caption("Letter Puzzle")
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
@@ -132,68 +132,53 @@ class Home:
         pygame.display.set_caption("Mode Select")
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
         x = self.middle
-        y = 150
-        min_num_grids = 4
-        max_num_grids = 32
-        min_rows = 4
-        max_rows = 10
-        min_cols = 4
-        max_cols = 12
-        min_sequ_len = 1
-        max_sequ_len = 4
-        min_num_targets = 1
-        max_num_targets = 5
-        min_row_space= 1
-        max_row_space = 3
-        min_col_space = 1
-        max_col_space = 5
-        arrow_gap = 100
-        label_width = 150
+        y = 100
 
 
         back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.right, 10), (self.button_width, self.button_height)), text="Back", manager = self.manager)
-        start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.screen_width-200, self.screen_height-100), (self.button_width, self.button_height)), text="Start", manager = self.manager)
 
-        num_grids_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        num_grids_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        num_grids_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Number of Grids", manager=self.manager)
-        num_grids_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_rows), manager=self.manager)
+        num_grids_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        num_grids_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        num_grids_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Number of Grids", manager=self.manager)
+        num_grids_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_rows), manager=self.manager)
         y += 100
 
-        rows_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        rows_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        rows_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Rows", manager= self.manager)
-        rows_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_rows), manager= self.manager)
+        rows_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        rows_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        rows_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Rows", manager= self.manager)
+        rows_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_rows), manager= self.manager)
         y += 100
-        cols_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        cols_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        cols_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Columns", manager = self.manager)
-        cols_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_cols), manager = self.manager)
+        cols_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        cols_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        cols_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Columns", manager = self.manager)
+        cols_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_cols), manager = self.manager)
         y += 100
-        sequ_len_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        sequ_len_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        sequ_len_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Sequence Length", manager=self.manager)
-        sequ_len_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text = str(min_sequ_len), manager=self.manager)
+        sequ_len_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        sequ_len_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        sequ_len_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Sequence Length", manager=self.manager)
+        sequ_len_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text = str(self.min_sequ_len), manager=self.manager)
         y += 100
-        num_targets_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        num_targets_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        num_targets_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Number of Targets", manager = self.manager)
-        num_targets_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_num_targets), manager= self.manager)
+        num_targets_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        num_targets_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        num_targets_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Number of Targets", manager = self.manager)
+        num_targets_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_num_targets), manager= self.manager)
         y += 100
-        row_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        row_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        row_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Space Between Rows", manager=self.manager)
-        row_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_row_space), manager=self.manager)
+        row_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        row_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        row_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Space Between Rows", manager=self.manager)
+        row_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_row_space), manager=self.manager)
         y += 100
-        col_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
-        col_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
-        col_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Space Between Columns", manager=self.manager)
-        col_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_col_space), manager=self.manager)
+        col_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-self.arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+        col_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+self.arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+        col_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (self.label_width, 50)), text="Space Between Columns", manager=self.manager)
+        col_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(self.min_col_space), manager=self.manager)
+        y += 100
+        start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle, y), (self.button_width, self.button_height)), text="Start", manager = self.manager)
 
         clock = pygame.time.Clock()
         running = True
 
-        new_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color, False)
+        new_game = Game_With_Set_Params(self.min_rows, self.min_cols, self.min_sequ_len, self.min_num_targets, self.min_row_space, self.min_col_space, self.min_num_grids, self.right_color, self.left_color, False)
         new_game.left_color = self.left_color
         new_game.right_color = self.right_color
 
@@ -211,57 +196,57 @@ class Home:
                             new_game.run()
 
                         elif event.ui_element == num_grids_increase_button:
-                            if int(num_grids_textbox.html_text) < max_num_grids:
+                            if int(num_grids_textbox.html_text) < self.max_num_grids:
                                 new_game.num_grids = int(num_grids_textbox.html_text) + 4
                                 print("the new grid number is ", new_game.num_grids)
                         elif event.ui_element == num_grids_decrease_button:
-                            if int(num_grids_textbox.html_text) >= min_num_grids:
+                            if int(num_grids_textbox.html_text) > self.min_num_grids:
                                 new_game.num_grids = int(num_grids_textbox.html_text) - 4
 
                         elif event.ui_element == rows_increase_button:
-                            if int(rows_textbox.html_text) < max_rows:
+                            if int(rows_textbox.html_text) < self.max_rows:
                                 new_game.rows = int(rows_textbox.html_text) + 1
                                 print("the new row number is ", new_game.rows)
                         elif event.ui_element == rows_decrease_button:
-                            if int(rows_textbox.html_text) >= min_rows:
+                            if int(rows_textbox.html_text) > self.min_rows:
                                 new_game.rows = int(rows_textbox.html_text) - 1
                                 print("the new row number is ", new_game.rows)
 
                         elif event.ui_element == cols_increase_button:
-                            if int(cols_textbox.html_text) < max_cols:
+                            if int(cols_textbox.html_text) < self.max_cols:
                                 new_game.cols = int(cols_textbox.html_text) + 1
                         elif event.ui_element == cols_decrease_button:
-                            if int(cols_textbox.html_text) >= min_cols:
+                            if int(cols_textbox.html_text) > self.min_cols:
                                 new_game.cols = int(cols_textbox.html_text) - 1
                             print("the new col number is ", new_game.cols)
 
 
                         elif event.ui_element == sequ_len_increase_button:
-                            if int(sequ_len_textbox.html_text) < max_sequ_len:
+                            if int(sequ_len_textbox.html_text) < self.max_sequ_len:
                                 new_game.sequ_len = int(sequ_len_textbox.html_text) + 1
                         elif event.ui_element == sequ_len_decrease_button:
-                            if int(sequ_len_textbox.html_text) >= min_sequ_len:
+                            if int(sequ_len_textbox.html_text) > self.min_sequ_len:
                                 new_game.sequ_len = int(sequ_len_textbox.html_text) - 1
 
                         elif event.ui_element == num_targets_increase_button:
-                            if int(num_targets_textbox.html_text) < max_num_targets:
+                            if int(num_targets_textbox.html_text) < self.max_num_targets:
                                 new_game.num_targets = int(num_targets_textbox.html_text) + 1
                         elif event.ui_element == num_targets_decrease_button:
-                            if int(num_targets_textbox.html_text) >= min_num_targets:
+                            if int(num_targets_textbox.html_text) > self.min_num_targets:
                                 new_game.num_targets = int(num_targets_textbox.html_text) - 1
 
                         elif event.ui_element == row_space_increase_button:
-                            if int(row_space_textbox.html_text) < max_row_space:
+                            if int(row_space_textbox.html_text) < self.max_row_space:
                                 new_game.row_space = int(row_space_textbox.html_text) + 1
                         elif event.ui_element == row_space_decrease_button:
-                            if int(row_space_textbox.html_text) >= min_row_space:
+                            if int(row_space_textbox.html_text) > self.min_row_space:
                                 new_game.row_space = int(row_space_textbox.html_text) - 1
 
                         elif event.ui_element == col_space_increase_button:
-                            if int(col_space_textbox.html_text) < max_col_space:
+                            if int(col_space_textbox.html_text) < self.max_col_space:
                                 new_game.col_space = int(col_space_textbox.html_text) + 1
                         elif event.ui_element == col_space_decrease_button:
-                            if int(col_space_textbox.html_text) >= min_col_space:
+                            if int(col_space_textbox.html_text) > self.min_col_space:
                                 new_game.col_space = int(col_space_textbox.html_text) - 1
 
                         num_grids_textbox.html_text = str(new_game.num_grids)
@@ -284,6 +269,162 @@ class Home:
             self.screen.fill((0, 0, 0))
             self.manager.draw_ui(self.screen)
             pygame.display.update()
+    # def mode_page(self):
+    #     pygame.display.set_caption("Mode Select")
+    #     self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
+    #     x = self.middle
+    #     y = 150
+    #     min_num_grids = 4
+    #     max_num_grids = 32
+    #     min_rows = 4
+    #     max_rows = 10
+    #     min_cols = 4
+    #     max_cols = 12
+    #     min_sequ_len = 1
+    #     max_sequ_len = 4
+    #     min_num_targets = 1
+    #     max_num_targets = 5
+    #     min_row_space= 1
+    #     max_row_space = 3
+    #     min_col_space = 1
+    #     max_col_space = 5
+    #     arrow_gap = 100
+    #     label_width = 150
+    #
+    #
+    #     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.right, 10), (self.button_width, self.button_height)), text="Back", manager = self.manager)
+    #     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.screen_width-200, self.screen_height-100), (self.button_width, self.button_height)), text="Start", manager = self.manager)
+    #
+    #     num_grids_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     num_grids_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     num_grids_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Number of Grids", manager=self.manager)
+    #     num_grids_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_rows), manager=self.manager)
+    #     y += 100
+    #
+    #     rows_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     rows_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     rows_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Rows", manager= self.manager)
+    #     rows_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_rows), manager= self.manager)
+    #     y += 100
+    #     cols_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     cols_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     cols_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Columns", manager = self.manager)
+    #     cols_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_cols), manager = self.manager)
+    #     y += 100
+    #     sequ_len_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     sequ_len_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     sequ_len_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Sequence Length", manager=self.manager)
+    #     sequ_len_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text = str(min_sequ_len), manager=self.manager)
+    #     y += 100
+    #     num_targets_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     num_targets_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     num_targets_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Number of Targets", manager = self.manager)
+    #     num_targets_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_num_targets), manager= self.manager)
+    #     y += 100
+    #     row_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     row_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     row_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Space Between Rows", manager=self.manager)
+    #     row_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_row_space), manager=self.manager)
+    #     y += 100
+    #     col_space_decrease_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle-arrow_gap, y), (50, 50)), text="<", manager = self.manager)
+    #     col_space_increase_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((self.middle+arrow_gap, y), (50, 50)), text=">", manager = self.manager)
+    #     col_space_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((self.middle - 300, y), (label_width, 50)), text="Space Between Columns", manager=self.manager)
+    #     col_space_textbox = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((self.middle, y), (100, 50)), html_text= str(min_col_space), manager=self.manager)
+    #
+    #     clock = pygame.time.Clock()
+    #     running = True
+    #
+    #     new_game = Game_With_Set_Params(min_rows, min_cols, min_sequ_len, min_num_targets, min_row_space, min_col_space, min_num_grids, self.right_color, self.left_color, False)
+    #     new_game.left_color = self.left_color
+    #     new_game.right_color = self.right_color
+    #
+    #     while running:
+    #         time_delta = clock.tick(60) / 1000
+    #         for event in pygame.event.get():
+    #             if event.type == pygame.QUIT:
+    #                 running = False
+    #
+    #             elif event.type == pygame.USEREVENT:
+    #                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+    #                     if event.ui_element == back_button:
+    #                         self.back_to_menu()
+    #                     elif event.ui_element == start_button:
+    #                         new_game.run()
+    #
+    #                     elif event.ui_element == num_grids_increase_button:
+    #                         if int(num_grids_textbox.html_text) < max_num_grids:
+    #                             new_game.num_grids = int(num_grids_textbox.html_text) + 4
+    #                             print("the new grid number is ", new_game.num_grids)
+    #                     elif event.ui_element == num_grids_decrease_button:
+    #                         if int(num_grids_textbox.html_text) >= min_num_grids:
+    #                             new_game.num_grids = int(num_grids_textbox.html_text) - 4
+    #
+    #                     elif event.ui_element == rows_increase_button:
+    #                         if int(rows_textbox.html_text) < max_rows:
+    #                             new_game.rows = int(rows_textbox.html_text) + 1
+    #                             print("the new row number is ", new_game.rows)
+    #                     elif event.ui_element == rows_decrease_button:
+    #                         if int(rows_textbox.html_text) >= min_rows:
+    #                             new_game.rows = int(rows_textbox.html_text) - 1
+    #                             print("the new row number is ", new_game.rows)
+    #
+    #                     elif event.ui_element == cols_increase_button:
+    #                         if int(cols_textbox.html_text) < max_cols:
+    #                             new_game.cols = int(cols_textbox.html_text) + 1
+    #                     elif event.ui_element == cols_decrease_button:
+    #                         if int(cols_textbox.html_text) >= min_cols:
+    #                             new_game.cols = int(cols_textbox.html_text) - 1
+    #                         print("the new col number is ", new_game.cols)
+    #
+    #
+    #                     elif event.ui_element == sequ_len_increase_button:
+    #                         if int(sequ_len_textbox.html_text) < max_sequ_len:
+    #                             new_game.sequ_len = int(sequ_len_textbox.html_text) + 1
+    #                     elif event.ui_element == sequ_len_decrease_button:
+    #                         if int(sequ_len_textbox.html_text) >= min_sequ_len:
+    #                             new_game.sequ_len = int(sequ_len_textbox.html_text) - 1
+    #
+    #                     elif event.ui_element == num_targets_increase_button:
+    #                         if int(num_targets_textbox.html_text) < max_num_targets:
+    #                             new_game.num_targets = int(num_targets_textbox.html_text) + 1
+    #                     elif event.ui_element == num_targets_decrease_button:
+    #                         if int(num_targets_textbox.html_text) >= min_num_targets:
+    #                             new_game.num_targets = int(num_targets_textbox.html_text) - 1
+    #
+    #                     elif event.ui_element == row_space_increase_button:
+    #                         if int(row_space_textbox.html_text) < max_row_space:
+    #                             new_game.row_space = int(row_space_textbox.html_text) + 1
+    #                     elif event.ui_element == row_space_decrease_button:
+    #                         if int(row_space_textbox.html_text) >= min_row_space:
+    #                             new_game.row_space = int(row_space_textbox.html_text) - 1
+    #
+    #                     elif event.ui_element == col_space_increase_button:
+    #                         if int(col_space_textbox.html_text) < max_col_space:
+    #                             new_game.col_space = int(col_space_textbox.html_text) + 1
+    #                     elif event.ui_element == col_space_decrease_button:
+    #                         if int(col_space_textbox.html_text) >= min_col_space:
+    #                             new_game.col_space = int(col_space_textbox.html_text) - 1
+    #
+    #                     num_grids_textbox.html_text = str(new_game.num_grids)
+    #                     num_grids_textbox.rebuild()
+    #                     rows_textbox.html_text = str(new_game.rows)
+    #                     rows_textbox.rebuild()
+    #                     cols_textbox.html_text = str(new_game.cols)
+    #                     cols_textbox.rebuild()
+    #                     sequ_len_textbox.html_text = str(new_game.sequ_len)
+    #                     sequ_len_textbox.rebuild()
+    #                     num_targets_textbox.html_text = str(new_game.num_targets)
+    #                     num_targets_textbox.rebuild()
+    #                     row_space_textbox.html_text = str(new_game.row_space)
+    #                     row_space_textbox.rebuild()
+    #                     col_space_textbox.html_text = str(new_game.col_space)
+    #                     col_space_textbox.rebuild()
+    #
+    #             self.manager.process_events(event)
+    #         self.manager.update(time_delta)
+    #         self.screen.fill((0, 0, 0))
+    #         self.manager.draw_ui(self.screen)
+    #         pygame.display.update()
 
     def color_picker_page(self, side):
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
