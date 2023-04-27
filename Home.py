@@ -100,7 +100,9 @@ class Home:
                 elif event.type == pygame.USEREVENT:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == start_button:
-                            running = False
+                            quick_game = Game_With_Set_Params(r.randint(4, 6), r.randint(4, 6), r.randint(1, 2), r.randint(1, 3), self.min_row_space, self.min_col_space, 10, self.right_color, self.left_color, False)
+                            quick_game.run()
+
                         elif event.ui_element == mode_button:
                             self.mode_page()
                         elif event.ui_element == settings_button:
