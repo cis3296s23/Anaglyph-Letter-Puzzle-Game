@@ -3,6 +3,9 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../../../firebase.config";
 import { useRouter } from "next/router";
 
+/**
+ * Button to allow users to choose Google OAUTH
+ */
 export default function SignInWithGoogle() {
     // obtain auth status
     const auth = getAuth(app);

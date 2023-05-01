@@ -4,6 +4,9 @@ interface ErrorPaneProps {
     error: string;
 }
 
+/**
+ * Error Component that displays a visual error to a user
+ */
 export default function ErrorPane(props: ErrorPaneProps) {
     const { error } = props;
 

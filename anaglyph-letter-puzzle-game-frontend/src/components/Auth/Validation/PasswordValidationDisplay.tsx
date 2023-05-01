@@ -3,7 +3,7 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 
-interface PasswordValidationDisplayProps {
+export interface PasswordValidationDisplayProps {
     password: string;
     lengthMin: number;
     numCapital?: number;
@@ -12,6 +12,9 @@ interface PasswordValidationDisplayProps {
     setIsValidPassword: (b: boolean) => void;
 }
 
+/**
+ * Validates password based on props and sets the valid var using `setIsValidPassword`.
+ */
 export default function PasswordValidationDisplay(props: PasswordValidationDisplayProps) {
     const { password } = props;
 
