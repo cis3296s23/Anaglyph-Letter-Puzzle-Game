@@ -6,6 +6,9 @@ import React, { useRef, useState } from "react";
 import FirebaseErrorPane from "../ErrorPane/FirebaseErrorPane";
 import SignInWithGoogle from "./SignInWithGoogle";
 
+/**
+ * Sign in Component to help users sign in via email/password or Google OAuth
+ */
 export default function SignIn() {
     const auth = getAuth();
     const router = useRouter();

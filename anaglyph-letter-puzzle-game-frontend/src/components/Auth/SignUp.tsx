@@ -1,4 +1,3 @@
-import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,6 +8,9 @@ import PasswordValidationDisplay from "./Validation/PasswordValidationDisplay";
 
 const re = new RegExp("auth/([^)]+)");
 
+/**
+ * Sign Up Component that takes in user input and submits it to be validated and to the database
+ */
 export default function SignUp() {
     const auth = getAuth();
 
