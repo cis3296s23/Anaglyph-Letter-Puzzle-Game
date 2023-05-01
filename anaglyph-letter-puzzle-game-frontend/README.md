@@ -1,6 +1,6 @@
 # Website Documentation
 
-The website is powered by NextJS which is a wrapper over ReactJS to provide alternate hydration methods rather than just client-side rendering. NextJS also provides a ready-to-use API layer to setup serverless functions for your website to call. 
+The website is powered by NextJS which is a wrapper over ReactJS to provide alternate hydration methods rather than just client-side rendering. NextJS also provides a ready-to-use API layer to setup serverless functions for your website to call.
 
 ## Install Dependencies
 
@@ -25,3 +25,11 @@ To see the docs for the React Components Used. Run the docs server on localhost 
 ```
 npm run storybook
 ```
+
+## UML Diagram
+
+Here is a UML CLass Diagram based on the Website's Frontend. Many imports are left out because they are usually assumed with react usage or they would just clutter up the diagram.
+
+![UML_DIAGRAM](./public/FE-UML.svg)
+
+> If the above SVG image does not load you can obtain the PNG image from [here](./public/FE-UML.png)

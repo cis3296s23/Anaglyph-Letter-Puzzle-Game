@@ -1,7 +1,7 @@
 import { PatientEditorReducer } from "@/hooks/PatientEditorReducer";
 import { GetUserResponse } from "@/pages/api/user/get";
 import { PostUserRequest, PostUserResponse } from "@/pages/api/user/post";
-import { filterAndReorderUserData, reorderUserData } from "@/util";
+import { filterAndReorderUserData } from "@/util";
 import axios, { AxiosResponse } from "axios";
 import { DocumentData } from "firebase/firestore";
 import React, { useEffect, useReducer, useState } from "react";
