@@ -3,7 +3,7 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 
-interface PasswordValidationDisplayProps {
+export interface PasswordValidationDisplayProps {
     password: string;
     lengthMin: number;
     numCapital?: number;

@@ -3,20 +3,28 @@ import PasswordValidationDisplay from "../../../components/Auth/Validation/Passw
 export default {
     title: "PasswordValidationDisplay",
     component: PasswordValidationDisplay,
-    tags: ["autodocs"],
 };
-
 
 const TemplateValidator = (password: string) => (
     <PasswordValidationDisplay password={password} lengthMin={5} numCapital={1} numNumbers={1} numSymbols={1} setIsValidPassword={() => {}} />
 );
 
-/**
- * In Each example below, the password must be 5 chars long with at least:
- * + 1 Number
- * + 1 Symbol
- * + 1 Capital
- */
 export const MissingSymbol = () => TemplateValidator("ABCD1234");
 export const MissingCapital = () => TemplateValidator("aBc1234");
 export const MissingNumbersAndSymbol = () => TemplateValidator("aAccart");
+
+/**
+ * Click on this Doc-Component to try this component in action!
+ */
+export const TryItYourself = ({ password }: { password: string }) => TemplateValidator(password);
+TryItYourself.args = {
+    password: "abcD**12",
+};
+TryItYourself.argTypes = {
+    password: { control: { type: "text" } },
+    lengthMin: { table: { disable: true } },
+    numCapital: { table: { disable: true } },
+    numNumbers: { table: { disable: true } },
+    numSymbols: { table: { disable: true } },
+    setIsValidPassword: { table: { disable: true } },
+};

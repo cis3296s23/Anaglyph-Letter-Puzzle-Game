@@ -2,6 +2,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import React, { useEffect, useState } from "react";
 import { DocumentData } from "firebase/firestore";
 
+export interface ClickCartDataDtype {
+    correct: number;
+    total: number;
+}
+
 export interface ClicksChartProps {
     data: DocumentData[];
 }
@@ -19,6 +24,9 @@ interface DBAccArrayElement {
 
 const Title = ({ title }: { title: string }) => <h2 className="text-xl font-medium mt-3 mb-4 xs1-max:px-4">{title} </h2>;
 
+/**
+ * Generates a chart given an array of `{correct: number, total: number}` objects
+ */
 export default function ClicksChart(props: ClicksChartProps) {
     const [clickData, setClickData] = useState<DBClickArrayElement[]>([]);
     const [accData, setAccData] = useState<DBAccArrayElement[]>([]);
