@@ -41,7 +41,6 @@ class Game:
         self.screen_height = info.current_h
         self.screen = pg.display.set_mode((self.screen_width, self.screen_height))
         self.manager = pg_gui.UIManager((self.screen_width, self.screen_height))
-
         self.current_grid = self.grids[self.grids_completed]
         self.font_size = 50
         self.font = pg.font.Font(None, self.font_size)
@@ -51,7 +50,6 @@ class Game:
         self.sequ_height = self.sequ_surface.get_rect().height
         new_line_surface = self.font.render("\n", True, (0,0,0))
         self.col_space_string = " " * self.col_space
-        tab_surface = self.font.render(self.col_space_string, True, (0,0,0))
         self.row_space_height = new_line_surface.get_rect().height
         self.col_space_width = self.sequ_surface.get_rect().width
 
@@ -109,12 +107,6 @@ class Game:
                 num_targets = r.randint(1, 2)
 
             new_grid = Grid(rows, cols, sequ_len, num_targets, self.row_space, self.col_space)
-
-            # print(new_grid.rows)
-            # print(new_grid.cols)
-            # print(new_grid.grid_size)
-            # print(self.col_space_render)
-            #
             self.grids.append(new_grid)
 
     def draw_grid(self, screen, col_space_multiplier):
@@ -173,20 +165,13 @@ class Game:
         self.grids = []
         self.grids_completed = 0
         self.already_found = []
-        # col_space_multiplier = self.col_space_render * self.sequ_len * 2
-        # col_space_multiplier = 1
-        # if self.quick == False:
-        #     col_space_multiplier = self.sequ_len * self.sequ_len * (self.sequ_len + 1)
+
         if self.quick == True:
             self.num_grids = 10
             self.generate_quick_grids()
         else:
             col_space_multiplier = self.sequ_len * self.sequ_len * (self.sequ_len + self.sequ_len//2)
             self.generate_grids()
-        # elif self.quick == True:
-        #     self.num_grids = 14
-        #     self.generate_quick_grids()
-        # self.current_grid = self.grids[self.grids_completed]
         running = True
         print(self.current_grid.grid_list)
         rect_centers = []
