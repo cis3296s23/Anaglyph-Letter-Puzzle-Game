@@ -2,15 +2,14 @@ import math as m
 import string as s
 import random as r
 import pygame as pg
+
 class Grid:
-    def __init__(self, rows, cols, sequ_len, num_targets, row_space, col_space):
+    def __init__(self, rows, cols, sequ_len, num_targets):
         self.rows = rows
         self.cols = cols
         self.grid_size = self.rows * self.cols
         self.sequ_len = sequ_len
         self.num_targets = num_targets
-        self.row_space = row_space
-        self.col_space = col_space
         self.letter_bank = []
         self.sequ_bank = []
         self.diff_sequ = m.ceil(self.grid_size // 2)
@@ -22,7 +21,6 @@ class Grid:
         self.other = ''
         self.sequ_bank_target_removed = []
         self.grid = [[' ' for _ in range(cols)] for _ in range(rows)]
-        self.rect = pg.Rect(0, 0, cols * col_space, rows * row_space)
         self.font = pg.font.SysFont(None, 30)  # choose a font and font size
         self.grid_list = []
         self.targets_left = self.num_targets

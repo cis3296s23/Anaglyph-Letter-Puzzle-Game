@@ -6,8 +6,6 @@ import random as r
 from Game import Game
 
 class Menu:
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
 
     def __init__(self):
 
@@ -21,19 +19,16 @@ class Menu:
         self.manager = pygame_gui.UIManager((self.screen_width, self.screen_height))
         self.middle = (self.screen_width - self.button_width) / 2
         self.right = self.screen_width - self.button_width - 10
-        self.font = pygame.font.SysFont(None, 100)
         self.right_color = (255, 0, 0)
         self.left_color = (0, 0, 255)
         self.selected_colour = (255, 255, 255)
         self.prev_left = self.left_color
         self.prev_right = self.right_color
         self.min_num_grids, self.max_num_grids = 4, 32
-        self.min_rows, self.max_rows = 5, 12
-        self.min_cols, self.max_cols = 5, 12
-        self.min_sequ_len, self.max_sequ_len = 1, 4
+        self.min_rows, self.max_rows = 5, 15
+        self.min_cols, self.max_cols = 5, 15
+        self.min_sequ_len, self.max_sequ_len = 1, 3
         self.min_num_targets, self.max_num_targets = 1, 5
-        self.min_row_space, self.max_row_space = 1, 3
-        self.min_col_space, self.max_col_space = 2, 5
         self.label_width = 150
         self.gap = 10
         self.arrow_width = self.textbox_width = 50
@@ -74,8 +69,7 @@ class Menu:
                     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                         if event.ui_element == quick_play_button:
                             quick_game = Game(self.min_rows, self.min_cols, self.min_sequ_len, self.min_num_targets,
-                                              self.min_row_space, self.min_col_space, self.min_num_grids,
-                                              self.right_color, self.left_color, True)
+                                              self.min_num_grids, self.right_color, self.left_color, True)
                             quick_game.run()
                         elif event.ui_element == mode_button:
                             self.mode_page()
@@ -129,13 +123,8 @@ class Menu:
             self.create_widget_group(x, y + displacement*3, "Sequence Length", self.min_sequ_len)
         num_targets_decrease_button, num_targets_increase_button, num_targets_label, num_targets_textbox = \
             self.create_widget_group(x, y + displacement * 4, "Number of Targets", self.min_num_targets)
-        row_space_decrease_button, row_space_increase_button, row_space_label, row_space_textbox = \
-            self.create_widget_group(x, y + displacement * 5, "Space Between Rows", self.min_row_space)
-        col_space_decrease_button, col_space_increase_button, col_space_label, col_space_textbox = \
-            self.create_widget_group(x, y + displacement * 6, "Space Between Columns", self.min_col_space)
 
-        new_game = Game(self.min_rows, self.min_cols, self.min_sequ_len, self.min_num_targets, self.min_row_space,
-                        self.min_col_space, self.min_num_grids, self.right_color, self.left_color, False)
+        new_game = Game(self.min_rows, self.min_cols, self.min_sequ_len, self.min_num_targets, self.min_num_grids, self.right_color, self.left_color, False)
         # maps UI elements to their corresponding attributes in new_game
         ui_element_to_attribute = {
             num_grids_increase_button: ('num_grids', 4, self.min_num_grids, self.max_num_grids),
@@ -148,15 +137,10 @@ class Menu:
             sequ_len_decrease_button: ('sequ_len', -1, self.min_sequ_len, self.max_sequ_len),
             num_targets_increase_button: ('num_targets', 1, self.min_num_targets, self.max_num_targets),
             num_targets_decrease_button: ('num_targets', -1, self.min_num_targets, self.max_num_targets),
-            row_space_increase_button: ('row_space', 1, self.min_row_space, self.max_row_space),
-            row_space_decrease_button: ('row_space', -1, self.min_row_space, self.max_row_space),
-            col_space_increase_button: ('col_space', 1, self.min_col_space, self.max_col_space),
-            col_space_decrease_button: ('col_space', -1, self.min_col_space, self.max_col_space)
         }
 
         textboxes = {"num_grids": num_grids_textbox, "rows": rows_textbox, "cols": cols_textbox,
-                     "sequ_len": sequ_len_textbox, "num_targets": num_targets_textbox, "row_space": row_space_textbox,
-                     "col_space": col_space_textbox}
+                     "sequ_len": sequ_len_textbox, "num_targets": num_targets_textbox}
         clock = pygame.time.Clock()
         running = True
         while running:
@@ -318,15 +302,13 @@ class Menu:
                             self.menu_page()
 
                 self.manager.process_events(event)
+
             self.manager.update(time_delta)
             self.screen.fill((0, 0, 0))
             self.display_text(self.screen, directions, (100, 100), font)
             self.manager.draw_ui(self.screen)
-            left_rect = pygame.draw.rect(self.screen, self.left_color,
-                                         pygame.Rect(left_x, rect_y, color_width, color_height))
-            right_rect = pygame.draw.rect(self.screen, self.right_color,
-                                          pygame.Rect(right_x, rect_y, color_width, color_height))
-
+            left_rect = pygame.draw.rect(self.screen, self.left_color, pygame.Rect(left_x, rect_y, color_width, color_height))
+            right_rect = pygame.draw.rect(self.screen, self.right_color, pygame.Rect(right_x, rect_y, color_width, color_height))
             pygame.display.update()
 
     def login_page(self):
