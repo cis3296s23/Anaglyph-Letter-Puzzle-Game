@@ -1,6 +1,3 @@
-import sys
-import textwrap
-
 import pygame
 import pygame_gui
 from pygame_gui.elements import UIButton
@@ -141,21 +138,22 @@ class Menu:
                         self.min_col_space, self.min_num_grids, self.right_color, self.left_color, False)
         # maps UI elements to their corresponding attributes in new_game
         ui_element_to_attribute = {
-            num_grids_increase_button: ('num_grids', 4, self.max_num_grids),
-            num_grids_decrease_button: ('num_grids', -4, self.min_num_grids),
-            rows_increase_button: ('rows', 1, self.max_rows),
-            rows_decrease_button: ('rows', -1, self.min_rows),
-            cols_increase_button: ('cols', 1, self.max_cols),
-            cols_decrease_button: ('cols', -1, self.min_cols),
-            sequ_len_increase_button: ('sequ_len', 1, self.max_sequ_len),
-            sequ_len_decrease_button: ('sequ_len', -1, self.min_sequ_len),
-            num_targets_increase_button: ('num_targets', 1, self.max_num_targets),
-            num_targets_decrease_button: ('num_targets', -1, self.min_num_targets),
-            row_space_increase_button: ('row_space', 1, self.max_row_space),
-            row_space_decrease_button: ('row_space', -1, self.min_row_space),
-            col_space_increase_button: ('col_space', 1, self.max_col_space),
-            col_space_decrease_button: ('col_space', -1, self.min_col_space)
+            num_grids_increase_button: ('num_grids', 4, self.min_num_grids, self.max_num_grids),
+            num_grids_decrease_button: ('num_grids', -4, self.min_num_grids, self.max_num_grids),
+            rows_increase_button: ('rows', 1, self.min_rows, self.max_rows),
+            rows_decrease_button: ('rows', -1, self.min_rows, self.max_rows),
+            cols_increase_button: ('cols', 1, self.min_cols, self.max_cols),
+            cols_decrease_button: ('cols', -1, self.min_cols, self.max_cols),
+            sequ_len_increase_button: ('sequ_len', 1, self.min_sequ_len, self.max_sequ_len),
+            sequ_len_decrease_button: ('sequ_len', -1, self.min_sequ_len, self.max_sequ_len),
+            num_targets_increase_button: ('num_targets', 1, self.min_num_targets, self.max_num_targets),
+            num_targets_decrease_button: ('num_targets', -1, self.min_num_targets, self.max_num_targets),
+            row_space_increase_button: ('row_space', 1, self.min_row_space, self.max_row_space),
+            row_space_decrease_button: ('row_space', -1, self.min_row_space, self.max_row_space),
+            col_space_increase_button: ('col_space', 1, self.min_col_space, self.max_col_space),
+            col_space_decrease_button: ('col_space', -1, self.min_col_space, self.max_col_space)
         }
+
         textboxes = {"num_grids": num_grids_textbox, "rows": rows_textbox, "cols": cols_textbox,
                      "sequ_len": sequ_len_textbox, "num_targets": num_targets_textbox, "row_space": row_space_textbox,
                      "col_space": col_space_textbox}
@@ -176,14 +174,16 @@ class Menu:
                             new_game.run()
 
                         else:
-                            # Check if the event's ui element is in the dictionary
                             if event.ui_element in ui_element_to_attribute:
                                 # Get the corresponding attribute and update it in new_game
-                                attr, val, limit = ui_element_to_attribute[event.ui_element]
-                                new_val = int(getattr(new_game, attr)) + val
-                                if limit >= new_val >= 0:
+                                attr, val, min_val, max_val = ui_element_to_attribute[event.ui_element]
+                                current_val = getattr(new_game, attr)
+                                new_val = current_val + val
+                                if min_val <= new_val <= max_val:
                                     setattr(new_game, attr, new_val)
-                                    print(f"the new {attr} number is {new_val}")
+                                    print(f"The new {attr} number is {new_val}")
+                                else:
+                                    print(f"Error: {attr} must be between {min_val} and {max_val}")
 
                         for key, textbox in textboxes.items():
                             value = getattr(new_game, key)
