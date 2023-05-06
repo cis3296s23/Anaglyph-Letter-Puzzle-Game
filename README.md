@@ -6,9 +6,8 @@ The game is designed to be played while wearing anaglyph lenses, either red/gree
 
 This application tracks game parameters, scores, and other metrics. If used for vision therapy treatment, vision therapy providers can register their patients in a database through an online portal. When a petient is loggen in, gameplay data is sent to the database. Pateient performance data is only accessible to the vision therapy providers and can be used to monitor progress.
 
-<img width="1509" alt="Screen Shot 2023-05-05 at 9 17 46 PM" src="https://user-images.githubusercontent.com/123909507/236590604-6346a912-3573-4d2a-abe4-8876a7977ae5.png">
+<img width="600" alt="Screen Shot 2023-05-05 at 9 17 46 PM" src="https://user-images.githubusercontent.com/123909507/236590604-6346a912-3573-4d2a-abe4-8876a7977ae5.png">
 <img width="1509" alt="Screen Shot 2023-05-05 at 9 19 29 PM" src="https://user-images.githubusercontent.com/123909507/236590780-cc019dd2-b35f-4b65-9e3d-0dc34ec74ea5.png">
-
 
 
 Game Interface:
@@ -16,7 +15,7 @@ Menu Page
 <img width="1512" alt="Screen Shot 2023-05-05 at 2 41 55 AM" src="https://user-images.githubusercontent.com/123909507/236590368-0af5db95-7fb0-40a6-be86-096a46c35f74.png">
 
 Mode Select Page
-<img width="1512" alt="Screen Shot 2023-05-05 at 6 19 55 PM" src="https://user-images.githubusercontent.com/123909507/236590409-9363033c-ee79-4b28-b965-afbf7ec1e205.png"> <img width="1512" alt="Screen Shot 2023-05-05 at 6 18 39 PM" src="https://user-images.githubusercontent.com/123909507/236590377-89f7560e-633d-47f0-826d-8093a3a7d8fa.png"
+<img width="1512" alt="Screen Shot 2023-05-05 at 6 19 55 PM" src="https://user-images.githubusercontent.com/123909507/236590409-9363033c-ee79-4b28-b965-afbf7ec1e205.png"> 
 
 Settings Page
 
