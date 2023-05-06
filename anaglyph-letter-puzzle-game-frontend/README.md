@@ -45,8 +45,27 @@ The docs are also interactive. This means that you can change the state of the s
 
 ## UML Diagram
 
-Here is a UML CLass Diagram based on the Website's Frontend. Many imports are left out because they are usually assumed with react usage or they would just clutter up the diagram.
+Here is a UML Class Diagram based on the Website's Frontend. Many imports are left out because they are usually assumed with react usage or they would just clutter up the diagram. Each diagram represents a route of the website. Each field below is also public. 
 
-![UML_DIAGRAM](./public/FE-UML.svg)
+> A route is a URL path/pattern.
+
+## `/`: Home Page
+![home.png](./assets/home.png)
+
+## `/sign-in`: Sign In page
+![sign-in](./assets/sign-in.png)
+
+
+## `/sign-up`: Sign Up page
+![sign-up](./assets/sign-up.png)
+
+
+## `/my-patients`: All Patients Dashboard
+![dashboard](./assets/dashboard.png)
+
+## `/my-patients/[userId]`: User Information Page
+
+![patient-page](./assets/patient-page.png)
+
 
 > If the above SVG image does not load you can obtain the PNG image from [here](./public/FE-UML.png)
