@@ -10,38 +10,7 @@ This application tracks game parameters, scores, and other metrics. If used for 
 <img width="600" alt="Screen Shot 2023-05-05 at 9 19 29 PM" src="https://user-images.githubusercontent.com/123909507/236590780-cc019dd2-b35f-4b65-9e3d-0dc34ec74ea5.png">
 
 
-# Game Interface:
-
-Menu Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 2 41 55 AM" src="https://user-images.githubusercontent.com/123909507/236590368-0af5db95-7fb0-40a6-be86-096a46c35f74.png">
-
-Mode Select Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 6 19 55 PM" src="https://user-images.githubusercontent.com/123909507/236590409-9363033c-ee79-4b28-b965-afbf7ec1e205.png"> 
-
-
-Settings Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 6 18 39 PM" src="https://user-images.githubusercontent.com/123909507/236590377-89f7560e-633d-47f0-826d-8093a3a7d8fa.png">
-
-
-Color Picker Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 6 46 40 PM" src="https://user-images.githubusercontent.com/123909507/236590939-108e44c1-59aa-42fc-a0ac-8b3fce697a23.png">
-
-
-Help Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 6 19 23 PM" src="https://user-images.githubusercontent.com/123909507/236590381-e361d1f7-b66d-43cc-af64-0594cc238194.png">
-
-
-Login Page
-
-<img width="600" alt="Screen Shot 2023-05-05 at 6 19 32 PM" src="https://user-images.githubusercontent.com/123909507/236590390-20405444-b5d6-43c3-b897-94306b5d68cb.png">
-
-
-### How to Run
+# How to Run
 
 To play this game, launch the terminal and clone this repository using the command git clone <link to repository>
 
@@ -92,7 +61,39 @@ From the terminal, run the command:
 python3 Menu.py
 ```
 
+
+# Game Interface:
+
+Menu Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 2 41 55 AM" src="https://user-images.githubusercontent.com/123909507/236590368-0af5db95-7fb0-40a6-be86-096a46c35f74.png">
+
+Mode Select Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 6 19 55 PM" src="https://user-images.githubusercontent.com/123909507/236590409-9363033c-ee79-4b28-b965-afbf7ec1e205.png"> 
+
+
+Settings Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 6 18 39 PM" src="https://user-images.githubusercontent.com/123909507/236590377-89f7560e-633d-47f0-826d-8093a3a7d8fa.png">
+
+
+Color Picker Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 6 46 40 PM" src="https://user-images.githubusercontent.com/123909507/236590939-108e44c1-59aa-42fc-a0ac-8b3fce697a23.png">
+
+
+Help Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 6 19 23 PM" src="https://user-images.githubusercontent.com/123909507/236590381-e361d1f7-b66d-43cc-af64-0594cc238194.png">
+
+
+Login Page
+
+<img width="600" alt="Screen Shot 2023-05-05 at 6 19 32 PM" src="https://user-images.githubusercontent.com/123909507/236590390-20405444-b5d6-43c3-b897-94306b5d68cb.png">
+
+
 # How to contribute
 
-Follow this project board to know the latest status of the project: [http://...]([http://...])
+Follow this project board to know the latest status of the project: [[http://...]([http://...])](https://github.com/orgs/cis3296s23/projects/68)
 
