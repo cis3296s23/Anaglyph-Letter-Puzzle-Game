@@ -22,9 +22,12 @@ Mode Select Page
 
 Settings Page
 
+<img width="600" alt="Screen Shot 2023-05-05 at 6 18 39 PM" src="https://user-images.githubusercontent.com/123909507/236590377-89f7560e-633d-47f0-826d-8093a3a7d8fa.png">
+
+
 Color Picker Page
 
-<img width="600" alt="Screen Shot 2023-05-05 at 6 18 39 PM" src="https://user-images.githubusercontent.com/123909507/236590377-89f7560e-633d-47f0-826d-8093a3a7d8fa.png">
+<img width="1512" alt="Screen Shot 2023-05-05 at 6 46 40 PM" src="https://user-images.githubusercontent.com/123909507/236590939-108e44c1-59aa-42fc-a0ac-8b3fce697a23.png">
 
 
 Help Page
@@ -37,7 +40,7 @@ Login Page
 <img width="600" alt="Screen Shot 2023-05-05 at 6 19 32 PM" src="https://user-images.githubusercontent.com/123909507/236590390-20405444-b5d6-43c3-b897-94306b5d68cb.png">
 
 
-##How to Run
+## How to Run
 
 To play this game, launch the terminal and clone this repository using the command git clone <link to repository>
 
