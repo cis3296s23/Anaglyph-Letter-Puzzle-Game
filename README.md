@@ -10,7 +10,8 @@ This application tracks game parameters, scores, and other metrics. If used for 
 <img width="600" alt="Screen Shot 2023-05-05 at 9 19 29 PM" src="https://user-images.githubusercontent.com/123909507/236590780-cc019dd2-b35f-4b65-9e3d-0dc34ec74ea5.png">
 
 
-Game Interface:
+# Game Interface:
+
 Menu Page
 
 <img width="600" alt="Screen Shot 2023-05-05 at 2 41 55 AM" src="https://user-images.githubusercontent.com/123909507/236590368-0af5db95-7fb0-40a6-be86-096a46c35f74.png">
@@ -27,7 +28,7 @@ Settings Page
 
 Color Picker Page
 
-<img width="1512" alt="Screen Shot 2023-05-05 at 6 46 40 PM" src="https://user-images.githubusercontent.com/123909507/236590939-108e44c1-59aa-42fc-a0ac-8b3fce697a23.png">
+<img width="600" alt="Screen Shot 2023-05-05 at 6 46 40 PM" src="https://user-images.githubusercontent.com/123909507/236590939-108e44c1-59aa-42fc-a0ac-8b3fce697a23.png">
 
 
 Help Page
@@ -40,7 +41,7 @@ Login Page
 <img width="600" alt="Screen Shot 2023-05-05 at 6 19 32 PM" src="https://user-images.githubusercontent.com/123909507/236590390-20405444-b5d6-43c3-b897-94306b5d68cb.png">
 
 
-## How to Run
+### How to Run
 
 To play this game, launch the terminal and clone this repository using the command git clone <link to repository>
 
@@ -69,7 +70,7 @@ sudo apt-get install python3-pip
 
 Required Modules are located in `requirements.txt`
 
-If this item is not included it can be generated via:
+If this item is not included or is incomplete, it can be generated via:
 
 
 ```shell
@@ -83,11 +84,13 @@ pipreqsnb .
 pip3 install protobuf==3.20.1
 pip install -r requirements.txt
 ```
-##Launch the Game
+## Launch the Game
 
 From the terminal, run the command:
-python3 Menu.py
 
+```
+python3 Menu.py
+```
 
 # How to contribute
 
