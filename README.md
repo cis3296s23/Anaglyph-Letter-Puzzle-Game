@@ -7,7 +7,7 @@ The game is designed to be played while wearing anaglyph lenses, either red/gree
 This application tracks game parameters, scores, and other metrics. If used for vision therapy treatment, vision therapy providers can register their patients in a database through an online portal. When a petient is loggen in, gameplay data is sent to the database. Pateient performance data is only accessible to the vision therapy providers and can be used to monitor progress.
 
 <img width="600" alt="Screen Shot 2023-05-05 at 9 17 46 PM" src="https://user-images.githubusercontent.com/123909507/236590604-6346a912-3573-4d2a-abe4-8876a7977ae5.png">
-<img width="1509" alt="Screen Shot 2023-05-05 at 9 19 29 PM" src="https://user-images.githubusercontent.com/123909507/236590780-cc019dd2-b35f-4b65-9e3d-0dc34ec74ea5.png">
+<img width="600" alt="Screen Shot 2023-05-05 at 9 19 29 PM" src="https://user-images.githubusercontent.com/123909507/236590780-cc019dd2-b35f-4b65-9e3d-0dc34ec74ea5.png">
 
 
 Game Interface:
